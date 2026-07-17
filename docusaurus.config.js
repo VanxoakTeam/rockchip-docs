@@ -25,10 +25,8 @@ const config = {
   //   v4: true, // Improve compatibility with the upcoming Docusaurus v4
   // },
 
-  // url: 'https://wiki.vanxoak.org',
   url: 'https://vanxoakteam.github.io',
   baseUrl: '/rockchip-docs/',
-  //baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
