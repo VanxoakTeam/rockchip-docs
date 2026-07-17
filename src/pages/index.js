@@ -1,7 +1,6 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 
 const sections = [
@@ -44,10 +43,6 @@ const sections = [
 ];
 
 export default function Home() {
-  const {i18n} = useDocusaurusContext();
-  const prefix = i18n.currentLocale === 'en' ? '/en' : '';
-  const localize = (path) => `${prefix}${path}`;
-
   return (
     <Layout
       title="HD-RK3506-EVB 文档中心"
@@ -63,12 +58,12 @@ export default function Home() {
             <div className={styles.actions}>
               <Link
                 className="button button--primary button--lg"
-                to={localize('/docs/HD-RK3506-EVB/ProductIntroduction')}>
+                to="/docs/HD-RK3506-EVB/ProductIntroduction">
                 开始阅读
               </Link>
               <Link
                 className={`button button--secondary button--lg ${styles.secondaryButton}`}
-                to={localize('/docs/HD-RK3506-EVB/QuickStart/HardwareConnection')}>
+                to="/docs/HD-RK3506-EVB/QuickStart/HardwareConnection">
                 快速上手
               </Link>
             </div>
@@ -89,7 +84,7 @@ export default function Home() {
                 <Link
                   className={styles.card}
                   key={section.number}
-                  to={localize(section.path)}>
+                  to={section.path}>
                   <span className={styles.cardNumber}>{section.number}</span>
                   <h3>{section.title}</h3>
                   <p>{section.description}</p>
