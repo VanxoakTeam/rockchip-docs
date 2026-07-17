@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">完整系统编译 | 万象奥科</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://vanxoakteam.github.io/rockchip-docs/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://vanxoakteam.github.io/rockchip-docs/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://vanxoakteam.github.io/rockchip-docs/docs/HD-RK3506-EVB/BuildEnvironment/FullSystemBuild"><meta data-rh="true" property="og:locale" content="zh_CN"><meta data-rh="true" property="og:locale:alternate" content="en_US"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="完整系统编译 | 万象奥科"><meta data-rh="true" name="description" content="本文档主要介绍在获取完SDK后，如何进行完整的系统编译。"><meta data-rh="true" property="og:description" content="本文档主要介绍在获取完SDK后，如何进行完整的系统编译。"><link data-rh="true" rel="icon" href="/rockchip-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://vanxoakteam.github.io/rockchip-docs/docs/HD-RK3506-EVB/BuildEnvironment/FullSystemBuild"><link data-rh="true" rel="alternate" href="https://vanxoakteam.github.io/rockchip-docs/docs/HD-RK3506-EVB/BuildEnvironment/FullSystemBuild" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://vanxoakteam.github.io/rockchip-docs/en/docs/HD-RK3506-EVB/BuildEnvironment/FullSystemBuild" hreflang="en-US"><link data-rh="true" rel="alternate" href="https://vanxoakteam.github.io/rockchip-docs/docs/HD-RK3506-EVB/BuildEnvironment/FullSystemBuild" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"SDK开发","item":"https://vanxoakteam.github.io/rockchip-docs/docs/category/sdk开发"},{"@type":"ListItem","position":2,"name":"完整系统编译","item":"https://vanxoakteam.github.io/rockchip-docs/docs/HD-RK3506-EVB/BuildEnvironment/FullSystemBuild"}]}</script><link rel="stylesheet" href="/rockchip-docs/assets/css/styles.4bc8846d.css">
-<script src="/rockchip-docs/assets/js/runtime~main.02512f84.js" defer="defer"></script>
+<script src="/rockchip-docs/assets/js/runtime~main.4b08686e.js" defer="defer"></script>
 <script src="/rockchip-docs/assets/js/main.3b424f1c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -18,14 +18,14 @@
 </blockquote>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-依赖库安装">1. 依赖库安装<a href="#1-依赖库安装" class="hash-link" aria-label="1. 依赖库安装的直接链接" title="1. 依赖库安装的直接链接" translate="no">​</a></h2>
 <p>  编译 rk3506 Linux SDK包需要一些依赖，下面将进行安装依赖操作。</p>
-<p>安装依赖之前，最好执行以下指令更新软件包：</p>
+<p>  安装依赖之前，最好执行以下指令更新软件包：</p>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt update</span><br></span></code></pre></div></div>
-<p>安装依赖</p>
+<p>  安装依赖</p>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">#安装编译所需工具</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt-get update &amp;&amp; sudo apt-get install git ssh make gcc libssl-dev \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">liblz4-tool expect expect-dev g++ patchelf chrpath gawk texinfo chrpath \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">diffstat binfmt-support qemu-user-static live-build bison flex fakeroot \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">cmake gcc-multilib g++-multilib unzip device-tree-compiler ncurses-dev \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">libgucharmap-2-90-dev bzip2 expat gpgv2 cpp-aarch64-linux-gnu libgmp-dev \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">libmpc-dev bc python-is-python3 python2 file rsync bsdmainutils mtd-utils -y</span><br></span></code></pre></div></div>
-<p>确保所有依赖安装完成。</p>
+<p>  确保所有依赖安装完成。</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-检查编译环境">2. 检查编译环境<a href="#2-检查编译环境" class="hash-link" aria-label="2. 检查编译环境的直接链接" title="2. 检查编译环境的直接链接" translate="no">​</a></h2>
 <ul>
-<li class="">xxxxxxxxxx .├── app                 # 存放上层应用 app，主要是 qcamera/qfm/qplayer/settings 等一些应用程序。├── buildroot       # 基于 buildroot (2024.02) 开发的根文件系统。├── build.sh -&gt; device/rockchip/common/scripts/build.sh├── common -&gt; device/rockchip/common├── device          # 存放各芯片板级配置和Parameter文件，以及一些编译与打包固件的脚本和预备文件。├── docs                # 存放芯片模块开发指导文档、平台支持列表、芯片平台相关文档、Linux开发指南等。├── external        # 存放第三方相关仓库,包括音频、视频、网络、recovery 等。├── hal                 # 存放RK3506 HAL层相关源码├── kernel -&gt; kernel-6.1├── kernel-6.1  # 存放 kernel 6.1 开发的代码。├── Makefile -&gt; device/rockchip/common/Makefile├── prebuilts       # 存放交叉编译工具链├── README.md -&gt; device/rockchip/common/README.md├── rkbin               # 存放 Rockchip 相关的 Binary 和工具├── rkflash.sh -&gt; device/rockchip/common/scripts/rkflash.sh├── rockdev -&gt; output/firmware├── rtos                # 存放Rtos相关代码├── tools               # 存放 Linux 和 Windows 操作系统环境下常用工具├── u-boot          # 存放uboot源码├── Vanxoak_SDK_Update_Log_20260601.txt└── yocto               # 存放yocoto源码shell</li>
+<li class="">检查和升级主机的 <strong>python</strong> 版本</li>
 </ul>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">$ python3 --version</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Python 3.10.6</span><br></span></code></pre></div></div>
 <ul>
@@ -44,48 +44,25 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="31-选择板级配置">3.1 选择板级配置<a href="#31-选择板级配置" class="hash-link" aria-label="3.1 选择板级配置的直接链接" title="3.1 选择板级配置的直接链接" translate="no">​</a></h3>
 <p>  第一次编译时会选择板级配置，选择对应配置文件。</p>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">itrunk@itrunk:/work/rk3506_linux6.1_sdk_v1.2.0$ ./build.sh lunch</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">############### Rockchip Linux SDK ###############</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Manifest: rk3506_linux6.1_release_v1.2.0_20250310.xml</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Log colors: message notice warning error fatal</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Log saved at /work/prj/rk3506/rk3506_linux6.1_sdk_v1.2.0/output/sessions/2026-04-14_10-56-40</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Pick a defconfig:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. rockchip_rk3506_b_iot_emmc_defconfig</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. rockchip_rk3506_b_iot_emmc_qt_defconfig</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. rockchip_rk3506_b_iot_nand_defconfig</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4. rockchip_rk3506_g_evb_nand_defconfig</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">5. rockchip_rk3506_g_evb_sd_defconfig</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">6. rockchip_rk3506_g_iot_nand_defconfig</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Which would you like? [1]:4</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">itrunk@itrunk:/work/rk3506_linux6.1_v1.2.0$ ./build.sh			</span><br></span></code></pre></div></div>
-<p>HD-RK3506-EVB评估板，需要使用 <strong>rockchip_rk3506_g_evb_nand_defconfig 配置文件</strong></p>
+<p>​	HD-RK3506-EVB评估板，需要使用 <strong>rockchip_rk3506_g_evb_nand_defconfig 配置文件</strong></p>
 <blockquote>
 <p><strong>注：选择配置文件时，以文件名为准；输入选项时，仔细核对文件名。</strong></p>
 <p><strong>如果不知道选择什么配置，请根据资料下载章节，仔细阅读核心板区分部分对自己的开发板区分后再进行选择。</strong></p>
 </blockquote>
-<ul>
-<li class=""><strong>RK3506B/J芯片，FLASH为EMMC版本，适配底板HD-RK3506-IOT</strong></li>
-</ul>
-<p><strong>rockchip_rk3506_b_iot_emmc_defconfig</strong></p>
-<ul>
-<li class=""><strong>RK3506B/J芯片，FLASH为EMMC版本，适配底板HD-RK3506-IOT，该配置可一键编译QT环境：</strong></li>
-</ul>
-<p><strong>rockchip_rk3506_b_iot_emmc_qt_defconfig</strong></p>
-<ul>
-<li class=""><strong>RK3506B芯片，FLASH为NAND版本，适配底板HD-RK3506-IOT</strong></li>
-</ul>
-<p><strong>rockchip_rk3506_b_iot_nand_defconfig</strong></p>
-<ul>
-<li class=""><strong>RK3506G芯片，FLASH为NAND版本配置，适配底板HD-RK3506-IOT</strong></li>
-</ul>
-<p><strong>rockchip_rk3506_g_iot_nand_defconfig</strong></p>
-<ul>
-<li class=""><strong>RK3506G芯片，FLASH为NAND版本配置，适配底板HD-RK3506-EVB</strong></li>
-</ul>
-<p><strong>rockchip_rk3506_g_evb_nand_defconfig</strong></p>
-<ul>
-<li class=""><strong>RK3506G芯片，可用于SD卡启动配置，适配底板HD-RK3506-EVB</strong></li>
-</ul>
-<p><strong>rockchip_rk3506_g_evb_sd_defconfig</strong></p>
+<table><thead><tr><th><strong>芯片</strong></th><th><strong>FLASH</strong></th><th><strong>底板</strong></th><th><strong>配置</strong></th></tr></thead><tbody><tr><td>RK3506B/J</td><td>EMMC</td><td>HD-RK3506-IOT</td><td>rockchip_rk3506_b_iot_emmc_defconfig</td></tr><tr><td>RK3506B/J</td><td>EMMC</td><td>HD-RK3506-IOT</td><td>rockchip_rk3506_b_iot_emmc_qt_defconfig</td></tr><tr><td>RK3506B</td><td>NAND</td><td>HD-RK3506-IOT</td><td>rockchip_rk3506_b_iot_nand_defconfig</td></tr><tr><td>RK3506G</td><td>NAND</td><td>HD-RK3506-IOT</td><td>rockchip_rk3506_g_iot_nand_defconfig</td></tr><tr><td>RK3506G</td><td>NAND</td><td>HD-RK3506-EVB</td><td>rockchip_rk3506_g_evb_nand_defconfig</td></tr><tr><td>RK3506G</td><td>SD卡</td><td>HD-RK3506-EVB</td><td>rockchip_rk3506_g_evb_sd_defconfig</td></tr></tbody></table>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="32-完整编译">3.2 完整编译<a href="#32-完整编译" class="hash-link" aria-label="3.2 完整编译的直接链接" title="3.2 完整编译的直接链接" translate="no">​</a></h3>
 <p>  在当前目录，执行以下命令，编译所有，包括uboot、kernel、buildroot、recovery等一键编译。</p>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">./build.sh </span><br></span></code></pre></div></div>
-<p>整个过程耗时较长，根据电脑性能决定编译时间。</p>
+<p>  整个过程耗时较长，根据电脑性能决定编译时间。</p>
 <img src="/rockchip-docs/assets/images/03-fullsystembuild-01-17bfec8a6cc81807e08cf9ed9f57b66e.png" alt="image.png" style="display:block;margin:20px auto;max-width:80%;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.1)">
-<p>编译完成后，固件将会存放在 rockdev目录。</p>
+<p>  编译完成后，固件将会存放在 rockdev目录。</p>
 <img src="/rockchip-docs/assets/images/03-fullsystembuild-02-d8371d2f35e34a541519be5423e19c5d.png" alt="image.png" style="display:block;margin:20px auto;max-width:80%;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.1)">
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="33-单独编译">3.3 单独编译<a href="#33-单独编译" class="hash-link" aria-label="3.3 单独编译的直接链接" title="3.3 单独编译的直接链接" translate="no">​</a></h3>
 <p>  当需要单独更新内核或uboot时，可使用以下命令单独编译。</p>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">./build.sh u-boot						# 单独编译u-boot</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">./build.sh kernel						# 单独编译 kernel</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">./build.sh buildroot				# 单独编译buildroot</span><br></span></code></pre></div></div>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="34-打包固件">3.4 打包固件<a href="#34-打包固件" class="hash-link" aria-label="3.4 打包固件的直接链接" title="3.4 打包固件的直接链接" translate="no">​</a></h3>
 <p>  执行以下命令，将会重新打包所有固件。</p>
-<p>适合单独编译后，需要把修改的u-boot或内核，合并成整包固件，即rockdev/update.img。用户可以直接烧录该固件。</p>
+<p>  适合单独编译后，需要把修改的u-boot或内核，合并成整包固件，即rockdev/update.img。用户可以直接烧录该固件。</p>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">./build.sh updateimg</span><br></span></code></pre></div></div>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="35-固件组成">3.5 固件组成<a href="#35-固件组成" class="hash-link" aria-label="3.5 固件组成的直接链接" title="3.5 固件组成的直接链接" translate="no">​</a></h3>
 <p>  系统固件各个组成部分的来源如下表所示。</p>
