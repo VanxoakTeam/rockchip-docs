@@ -59,6 +59,11 @@ const config = {
             'https://github.com/VanxoakTeam/rockchip-docs/tree/main/',
         },
         blog: false,
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: ['/tags/**'],
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
