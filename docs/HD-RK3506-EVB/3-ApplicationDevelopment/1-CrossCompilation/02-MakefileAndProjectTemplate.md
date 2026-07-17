@@ -6,7 +6,8 @@ sidebar_position: 2
 
 :::tip 提示
 
-本指南将指导您如何编写 Makefile 代码。
+本指南将指导您如何编写 Makefile 代码。
+
 
 :::
 
@@ -38,7 +39,7 @@ target: prerequisites
 
 ### 2.2 变量
 
-  赋值符
+#### 1）赋值符
 
 | 赋值符 | 含义 | 示例 |
 | --- | --- | --- |
@@ -47,7 +48,7 @@ target: prerequisites
 | ?= | **条件赋值**（仅当变量未定义时才赋值） | CC ?= gcc |
 | += | **追加赋值**（在原有值后添加内容） | CFLAGS += -O2 |
 
-内置自动变量
+#### 2）内置自动变量
 
 | 变量 | 说明 |
 | --- | --- |
@@ -101,7 +102,7 @@ include config.mk   # 引入外部配置文件
 
 ```makefile
 # 项目结构：src/ (存放 .c), inc/ (存放 .h), lib/ (存放 .o)
-  CC       := gcc
+CC       := arm-buildroot-linux-gnueabihf-gcc
 CFLAGS   := -Wall -Iinc
 LDFLAGS  := -lm
 TARGET   := app
@@ -113,11 +114,11 @@ OBJECTS  := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SOURCES))
 all: $(TARGET)
 
 # 链接
-  $(TARGET): $(OBJECTS)
+	$(TARGET): $(OBJECTS)
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 # 编译
-  $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR):

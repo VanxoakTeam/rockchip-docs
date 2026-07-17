@@ -12,7 +12,7 @@ sidebar_position: 8
 
 ### 1.2 DTS 节点配置
 
-  DTS 配置参考⽂档 为 `Documentation/devicetree/bindings/watchdog/dw_wdt.txt` ，本⽂主要说明 如下参数:
+DTS 配置参考⽂档 为 `Documentation/devicetree/bindings/watchdog/dw_wdt.txt` ，本⽂主要说明 如下参数:
 
 - `interrupts = <GIC\_SPI 120 IRQ\_TYPE\_LEVEL\_HIGH 0>;`
 
@@ -52,13 +52,9 @@ int main(void)
 
 关于 `close()`
 
-1.  正常情况下 `close()` ，不再喂狗，watchdog会⾃动重启。
+1.  正常情况下 `close()` ，不再喂狗，watchdog会⾃动重启。`echo A > /dev/watchdog` , 这⾥写⼊的是除⼤写V以外的任意字符。
 
-`echo A > /dev/watchdog` , 这⾥写⼊的是除⼤写V以外的任意字符。
-
-2.  `write(fd, "V", 1);` 再 `close()` ，写⼊⼤写V，内核继续喂狗，系统不会⾃动重启。
-
-`echo V > /dev/watchdog`
+2.  `write(fd, "V", 1);` 再 `close()` ，写⼊⼤写V，内核继续喂狗，系统不会⾃动重启。`echo V > /dev/watchdog`
 
 3.  配置宏 `CONFIG_WATCHDOG_NOWAYOUT` ，重复步骤2，内核不会继续喂狗，系统会被重启。
 
@@ -102,45 +98,41 @@ Prompt: Watchdog Timer Support
 1111: 0x7fffffff
 ```
 
-假设wdt clock为100MHz，最⼤超时时间 0x7fffffff / 100MHz = 21秒，如果需要更⼤的超时，需要调整 对应的wdt clock。
+  假设wdt clock为100MHz，最⼤超时时间 0x7fffffff / 100MHz = 21秒，如果需要更⼤的超时，需要调整 对应的wdt clock。
 
 ### 4.3 RK356X暂停功能
 
   使⽤Rockchip⾃带的io命令或者busybox的devmem命令可以实现暂停计数以及恢复计数。
 
-打开
+  打开：
 
 ```bash
 CONFIG_DEVMEM
 ```
 
-关闭
+  关闭：
 
 ```bash
 CONFIG_STRICT_DEVMEM
 ```
 
-0xfdc60504来⾃SYS\_GRF的GRF\_SOC\_CON1寄存器，对bit4写1暂停计数，写0恢复计数，⾼16位为写 使能位。
+  0xfdc60504来⾃SYS\_GRF的GRF\_SOC\_CON1寄存器，对bit4写1暂停计数，写0恢复计数，⾼16位为写 使能位。
 
-暂停计数
+  暂停计数（两种方式）：
 
 ```bash
 io -4 0xfdc60504 0x00100010
 ```
 
-或者
-
 ```bash
 busybox devmem 0xfdc60504 32 0x00100010
 ```
 
-恢复计数
+  恢复计数（两种方式）：
 
 ```bash
 io -4 0xfdc60504 0x00100000
 ```
-
-或者
 
 ```bash
 busybox devmem 0xfdc60504 32 0x00100000
@@ -148,25 +140,21 @@ busybox devmem 0xfdc60504 32 0x00100000
 
 ### 4.4 RK3588暂停功能
 
-  暂停计数
+  暂停计数（两种方式）：
 
 ```bash
 io -4 0xfd58c000 0x00010001
 ```
 
-或者
-
 ```bash
 busybox devmem 0xfd58c000 32 0x00010001
 ```
 
-恢复计数
+  恢复计数（两种方式）：
 
 ```bash
 io -4 0xfd58c000 0x00100000
 ```
-
-或者
 
 ```bash
 busybox devmem 0xfd58c000 32 0x00100000

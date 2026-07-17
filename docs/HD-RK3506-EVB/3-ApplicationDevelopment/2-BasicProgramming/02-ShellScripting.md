@@ -24,25 +24,24 @@ sidebar_position: 2
 echo "Hello World !"
 ```
 
-xxxxxxxxxx root@rk3506-buildroot:/# chmod a+x helloworldroot@rk3506-buildroot:/# ./helloworldHelloWorld 0!HelloWorld 1!HelloWorld 2!HelloWorld 3!HelloWorld 4!shell
-
 可以将上面的文本内容保存为helloworld.sh，然后给文件加上执行权限，可用两种方式执行：
 
 ```plain
-chmod +x ./helloworld.sh  #使脚本具有执行权限
-./helloworld.sh    	#直接运行脚本
+chmod +x ./helloworld.sh       #使脚本具有执行权限
+./helloworld.sh                #直接运行脚本
 /bin/sh helloworld.sh   
 ```
 
-注意，直接运行脚本时一定要写成 ./helloworld.sh，而不是 helloworld.sh，运行其它二进制的程序也一样，直接写 helloworld.sh，linux 系统会去 PATH 里寻找有没有叫 helloworld.sh 的，而只有 /bin, /sbin, /usr/bin，/usr/sbin 等在 PATH 里，当前目录通常不在 PATH 里，所以写成 helloworld.sh 是会找不到命令的，要用 ./helloworld.sh 告诉系统说，就在当前目录找。
+> 注意：直接运行脚本时一定要写成 ./helloworld.sh，而不是 helloworld.sh，运行其它二进制的程序也一样，直接写 helloworld.sh，linux 系统会去 PATH 里寻找有没有叫 helloworld.sh 的，而只有 /bin, /sbin, /usr/bin，/usr/sbin 等在 PATH 里，当前目录通常不在 PATH 里，所以写成 helloworld.sh 是会找不到命令的，要用 ./helloworld.sh 告诉系统说，就在当前目录找。
+>
 
-第二种运行方式是直接运行解释器，其参数就是 shell 脚本的文件名。
+  第二种运行方式是直接运行解释器，其参数就是 shell 脚本的文件名。
 
 ## 2. Shell 变量
 
   在 Shell 编程中，变量是用于存储数据值的名称。
 
-定义变量时，变量名不加美元 $ 符号，如：
+  定义变量时，变量名不加美元 $ 符号，如：
 
 ```plain
 varName="vanxoak"
@@ -211,7 +210,7 @@ echo ${string:1:4}   # 输出 anxo
 
 | 表达式 | 涵义 |
 | --- | --- |
-| xxxxxxxxxx # 项目结构：src/ (存放 .c), inc/ (存放 .h), lib/ (存放 .o)  CC       := gccCFLAGS   := -Wall -IincLDFLAGS  := -lmTARGET   := appSRC_DIR  := srcBUILD_DIR:= libSOURCES  := $(wildcard $(SRC_DIR)/*.c)OBJECTS  := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SOURCES))​all: $(TARGET)​# 链接  $(TARGET): $(OBJECTS)    $(CC) $^ -o $@ $(LDFLAGS)​# 编译  $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c \| $(BUILD_DIR)    $(CC) $(CFLAGS) -c $< -o $@$(BUILD_DIR):    mkdir -p $@​clean:    rm -rf $(BUILD_DIR) $(TARGET)​.PHONY: all cleanmakefile | $string的长度 |
+| `${#string}` | $string的长度 |
 | `${string:position}` | 在s t r i n g 中 , 从 位 置 string中, 从位置string中,从位置position开始提取子串 |
 | `${string:position:length}` | 在s t r i n g 中 , 从 位 置 string中, 从位置string中,从位置position开始提取长度为$length的子串 |
 | `${string#substring}` | 从变量s t r i n g 的 开 头 , 删 除 最 短 匹 配 string的开头, 删除最短匹配string的开头,删除最短匹配substring的子串 |
@@ -227,17 +226,19 @@ echo ${string:1:4}   # 输出 anxo
 
   对于shell来说，每一个命令也是一个逻辑表达式，用命令或者函数的返回值来代表它们的真值，返回0为真，返回非0为假，这个值可用“$?”来获取。
 
-Bash支持基本的数学运算符号和各种逻辑操作符。
+  Bash支持基本的数学运算符号和各种逻辑操作符。
 
-**数学运算符**：+、-、*、/、**\*、%。除了*代表的幂运算外，其它运算符与对应的C语言运算符意义相同。但Bash只支持整数运算，如果需要浮点运算，应该需要调用外部的工具。一般不建议在脚本里进行浮点运算。
+**数学运算符**：+、-、*、/、**\*、%。*
 
-像bc或者dc这样功能强大的计算器程序，可以完成浮点和更复杂的数学运算和求值。感兴趣的同学可以看这两个命令的手册。
+  除了代表的幂运算外，其它运算符与对应的C语言运算符意义相同。但Bash只支持整数运算，如果需要浮点运算，应该需要调用外部的工具。一般不建议在脚本里进行浮点运算。
+
+  像bc或者dc这样功能强大的计算器程序，可以完成浮点和更复杂的数学运算和求值。感兴趣的同学可以看这两个命令的手册。
 
 **逻辑操作符**：&&和||，分别代表逻辑“与”和逻辑“或”。
 
-对于&&来说，若左边的表达式为假，右边表达式将不用被执行即可确定整个表达式结果为假；反之需要求值右边的表达式才能求得整个表达式的真值。
+  对于&&来说，若左边的表达式为假，右边表达式将不用被执行即可确定整个表达式结果为假；反之需要求值右边的表达式才能求得整个表达式的真值。
 
-对于||来说，若左边的表达式为真，则右边的表达式将不用被执行即可以确定整个表达式为真；反之需要求值右边的表达式才能求得整个表达式的真值。
+  对于||来说，若左边的表达式为真，则右边的表达式将不用被执行即可以确定整个表达式为真；反之需要求值右边的表达式才能求得整个表达式的真值。
 
 ### 4.1 算术运算
 
@@ -316,13 +317,13 @@ then
 fi
 ```
 
-写成单行：
+  写成单行：
 
 ```plain
 if condition;then command1; command2;fi
 ```
 
-如果存在不满足的条件的情况：
+  如果存在不满足的条件的情况：
 
 ```plain
 if condition
@@ -336,7 +337,7 @@ else
 fi
 ```
 
-在多层嵌套条件情况：
+  在多层嵌套条件情况：
 
 ```plain
 if condition1
@@ -408,7 +409,7 @@ do
 done
 ```
 
-`condition` 一般为条件表达式，如果返回值为 true，则继续执行循环体内的语句，否则跳出循环。
+`  condition` 一般为条件表达式，如果返回值为 true，则继续执行循环体内的语句，否则跳出循环。
 
 ### 5.5 until循环
 
@@ -421,7 +422,7 @@ do
 done
 ```
 
-`condition` 一般为条件表达式，如果返回值为 false，则继续执行循环体内的语句，否则跳出循环。
+  `condition` 一般为条件表达式，如果返回值为 false，则继续执行循环体内的语句，否则跳出循环。
 
 ## 6. 函数
 
@@ -443,17 +444,16 @@ done
 }
 ```
 
-可以使用关键字function来定义函数，也可以在函数名后跟上一个空括号来表明正在定义的是一个函数。
+  可以使用关键字function来定义函数，也可以在函数名后跟上一个空括号来表明正在定义的是一个函数。
 
-当然，左花括号 `{` 可以写在新一行的开头，可以依据个人的风格喜好来选择。可以使用return返回一个int数值），如果不使用，将默认以最后一条命令运行的结果作为返回值。
+  当然，左花括号 `{` 可以写在新一行的开头，可以依据个人的风格喜好来选择。可以使用return返回一个int数值），如果不使用，将默认以最后一条命令运行的结果作为返回值。
 
-注意：所有的函数在使用前必须定义，这是因为shell解释器是顺序逐层执行的，当shell解释器发现定义的函数时，才会找到其对应的功能，进而执行。
+> 注意：所有的函数在使用前必须定义，这是因为shell解释器是顺序逐层执行的，当shell解释器发现定义的函数时，才会找到其对应的功能，进而执行。
+>
 
 ### 6.2 函数参数
 
   想要使用shell函数传递参数时，需要在函数体的内部，通过 $n 的形式来获取参数的值，与其他语言不同的是，这不是在定义函数的时候就给定参数，而是在函数体中获取到的参数，例如，$1表示第一个参数，$2表示第二个参数，函数名保存在$0变量中，可以用$#变量来确定传给函数的参数数量。
-
-  
 
 ### 6.3 获取函数返回值
 
@@ -479,7 +479,7 @@ echo "DD: $DD"
 echo "return: $?"
 ```
 
-上面脚本运行结果将会是：
+  上面脚本运行结果将会是：
 
 ```plain
 return: 100
@@ -488,6 +488,6 @@ DD: test here
 return: 0
 ```
 
-为什么最后一条是输出的0呢，因为$?总是保存着前一个程序或者函数的返回值，所以这个0值代表的是echo "DD: $DD"这个程序调用的结果，因此，若要后续判断函数执行结果，应尽快将$?的值保存到另一变量中，以免$?被后面的函数调用结果覆盖。
+  为什么最后一条是输出的0呢，因为$?总是保存着前一个程序或者函数的返回值，所以这个0值代表的是echo "DD: $DD"这个程序调用的结果，因此，若要后续判断函数执行结果，应尽快将$?的值保存到另一变量中，以免$?被后面的函数调用结果覆盖。
 
-注意：echo命令的实现原理取决于操作系统和Shell的实现。一般来说，echo命令是由Shell内建的一个命令，它不需要调用外部的程序来执行。
+> 注意：echo命令的实现原理取决于操作系统和Shell的实现。一般来说，echo命令是由Shell内建的一个命令，它不需要调用外部的程序来执行。

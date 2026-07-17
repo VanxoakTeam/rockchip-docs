@@ -15,13 +15,13 @@ sidebar_position: 3
 
   在 Linux 上操作文件时，有两套函数：标准IO、系统调用IO。标准IO 的相关函数是：fopen/fread/fwrite/fseek/fflush/fclose等 。 系 统 调 用IO的 相 关 函 数 是 ：open/read/write/lseek/fsync/close。
 
-这 2 种 IO 函数的差别如下图所示
+  这 2 种 IO 函数的差别如下图所示：
 
 <img src={require('./images/03-basicfileoperations-01.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
-标准IO的内部，会分配一个用户空间的buffer，读写操作先经过这个 buffer。在有必要时，才会调用底下的系统调用IO向内核发起操作。
+  标准IO的内部，会分配一个用户空间的buffer，读写操作先经过这个 buffer。在有必要时，才会调用底下的系统调用IO向内核发起操作。
 
-所以：标准IO效率更高；但是要访问驱动程序时就不能使用标准IO，而是使用系统调用IO。
+  所以：标准IO效率更高；但是要访问驱动程序时就不能使用标准IO，而是使用系统调用IO。
 
 ## 2. 使用open函数打开文件
 
@@ -86,9 +86,9 @@ int main(int argc, char **argv)
 }
 ```
 
-本节源码完全可以在DshanPI A1上测试。
+  本节源码完全可以在DshanPI A1上测试。
 
-执行以下命令编译、运行：
+  执行以下命令编译、运行：
 
 ```c
 baiwen@dshanpi-a1:~/code/04_fileio/01_open$ gcc -o open open.c
@@ -149,7 +149,7 @@ int main(int argc, char **argv)
 }
 ```
 
-执行以下命令编译、运行：
+  执行以下命令编译、运行：
 
 ```c
 baiwen@dshanpi-a1:~/code/04_fileio/02_create$ gcc create.c -o create
@@ -238,7 +238,7 @@ int main(int argc, char **argv)
 }
 ```
 
-执行以下命令编译、运行：
+  执行以下命令编译、运行：
 
 ```c
 baiwen@dshanpi-a1:~/code/04_fileio/03_write$ gcc write.c -o write
@@ -269,7 +269,7 @@ ssize_t read(int fd, void \*buf, size_t count);
 -   0 表示到达文件末尾（EOF）。
 -   \-1 表示错误，并设置 errno（如无效 fd 或权限不足）。
 
-本节read.c源码如下
+  本节read.c源码如下
 
 ```c
 #include <sys/types.h>
@@ -337,7 +337,7 @@ int main(int argc, char **argv)
 }
 ```
 
-执行以下命令编译、运行：
+  执行以下命令编译、运行：
 
 ```c
 baiwen@dshanpi-a1:~/code/04_fileio/04_read$ gcc -o read read.c
@@ -351,13 +351,7 @@ fd = 3
 
 ## 6. 综合实验\_处理表格
 
-  本节源码位于如下目录：
-
-04\_fileio\\05\_process\_excel\\process\_excel.c
-
-04\_fileio\\05\_process\_excel\\score.csv
-
-process\_excel.c源码如下
+  process\_excel.c源码如下
 
 ```c
 #include <sys/types.h>
@@ -544,7 +538,7 @@ score.csv内容如下：
 王五,70,71,72,,
 ```
 
-执行以下命令编译、运行:
+  执行以下命令编译、运行:
 
 ```c
 baiwen@dshanpi-a1:~/code/04_fileio/05_process_excel$ gcc process_excel.c -o process_excel
@@ -552,11 +546,11 @@ baiwen@dshanpi-a1:~/code/04_fileio/05_process_excel$ ls
 process_excel  process_excel.c  score.csv
 baiwen@dshanpi-a1:~/code/04_fileio/05_process_excel$ ./process_excel score.csv result.csv
 data file fd = 3
-    resultfile fd = 4
-    baiwen@dshanpi-a1:~/code/04_fileio/05_process_excel$ cat result.csv
+resultfile fd = 4
+baiwen@dshanpi-a1:~/code/04_fileio/05_process_excel$ cat result.csv
 ,2660,0,13056,15716,A+
-        张三,90,91,92,273,A+
-        李四,80,81,82,243,A
+张三,90,91,92,273,A+
+李四,80,81,82,243,A
 王五,70,71,72,213,B
 ```
 
@@ -564,7 +558,7 @@ data file fd = 3
 
 <img src={require('./images/03-basicfileoperations-02.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
-以open/read为例，从用户态调用API触发异常进入内核的过程如图 4.2所示，最后调用的sys\_call\_table的函数指针数组如下：
+  以open/read为例，从用户态调用API触发异常进入内核的过程如图 4.2所示，最后调用的sys\_call\_table的函数指针数组如下：
 
 ```c
 /* 0 */ CALL(sys_restart_syscall)
@@ -590,7 +584,7 @@ data file fd = 3
 
 <img src={require('./images/03-basicfileoperations-03.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
-从图 4.3可以看出，进入内核后，sys\_read/open会首先根据参数判断文件的类型，然后根据不同的文件类型去找不同的设备驱动，继而进行读写或者输入输出控制。
+  从图 4.3可以看出，进入内核后，sys\_read/open会首先根据参数判断文件的类型，然后根据不同的文件类型去找不同的设备驱动，继而进行读写或者输入输出控制。
 
 ## 9. dup函数的使用
 
@@ -652,7 +646,7 @@ int main(int argc, char **argv)
 }
 ```
 
-执行以下命令编译、运行：
+  执行以下命令编译、运行：
 
 ```c
 baiwen@dshanpi-a1:~/code/04_fileio/07_dup$ gcc dup.c -o dup

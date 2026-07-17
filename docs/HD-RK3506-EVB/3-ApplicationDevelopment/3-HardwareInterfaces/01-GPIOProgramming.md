@@ -29,21 +29,18 @@ gpioset [options] <chip> <line>=<value> [<line>=<value> ...]
 -   `**line**`**：** GPIO 引脚编号（基于该chip下的编号，而非全局编号）。
 -   `**value**`**：** 输出值，`0` 表示低电平，`1` 表示高电平。
 
-GPIO1\_B5 的line部分含字母和数字两部分，num为二者之和，其中字母A、B、C、D，分别代表0、8、16、24。 则 B5 值为 8 + 5 = 13。
+  GPIO1\_B5 的line部分含字母和数字两部分，num为二者之和，其中字母A、B、C、D，分别代表0、8、16、24。 则 B5 值为 8 + 5 = 13。
 
-  
-
-使用 gpioset 设置 GPIO1\_B5 输出高电平或者低电平：
+  使用 gpioset 设置 GPIO1\_B5 输出高电平或者低电平：
 
 ```shell
 # GPIO输出高电平
   gpioset gpiochip1 13=1
-
 # GPIO输出低电平
   gpioset gpiochip1 13=0
 ```
 
-gpioset 也支持一次设置多个GPIO引脚的状态，例如通过一条命令将GPIO1\_B5设置为高、GPIO1\_B6设置为低、GPIO1\_B7设置为高。则命令格式如下：
+  gpioset 也支持一次设置多个GPIO引脚的状态，例如通过一条命令将GPIO1\_B5设置为高、GPIO1\_B6设置为低、GPIO1\_B7设置为高。则命令格式如下：
 
 ```shell
 gpioset gpiochip1 13=1 14=0 15=1
@@ -129,10 +126,9 @@ int main(int argc, char *argv[])
 
     return EXIT_SUCCESS;
 }
-
 ```
 
-对应的 Makefile 示例：
+  对应的 Makefile 示例：
 
 ```shell
 CROSSCOMPILE := arm-buildroot-linux-gnueabihf-
@@ -159,7 +155,7 @@ clean:
 
 ```
 
-将编译后的程序放入开发板/oem目录，使用如下命令执行程序：
+  将编译后的程序放入开发板/oem目录，使用如下命令执行程序：
 
 ```shell
 root@rk3506-buildroot:/oem# ./gpio_out 1
@@ -225,7 +221,7 @@ int main(void) {
 
 ```
 
-将编译后的程序放入开发板/oem目录，使用如下命令执行程序，可以获取到GPIO的状态：
+  将编译后的程序放入开发板/oem目录，使用如下命令执行程序，可以获取到GPIO的状态：
 
 ```shell
 root@rk3506-buildroot:/oem# ./gpio_in

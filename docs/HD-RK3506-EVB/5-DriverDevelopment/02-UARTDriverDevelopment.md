@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## 1. 功能特点
 
-  Rockchip UART (Universal Asynchronous Receiver/Transmitter) 基于 16550A 串口标准，完整模块支持以下功能:
+Rockchip UART (Universal Asynchronous Receiver/Transmitter) 基于 16550A 串口标准，完整模块支持以下功能:
 
 -   支持 5､6､7､8 bits 数据位｡
 -   支持 1､1.5､2 bits 停止位｡
@@ -16,7 +16,8 @@ sidebar_position: 2
 -   支持中断传输模式和 DMA 传输模式｡
 -   支持硬件自动流控，RTS+CTS｡
 
-注意，实际芯片中的 UART 支持的功能请以芯片手册中 UART 章节的描述为准，部分 UART 功能会进行适当裁剪｡
+> 注意，实际芯片中的 UART 支持的功能请以芯片手册中 UART 章节的描述为准，部分 UART 功能会进行适当裁剪｡
+>
 
 ## 2. 作为普通串口
 
@@ -28,14 +29,14 @@ sidebar_position: 2
 drivers/tty/serial/rk_serial.c
 ```
 
-在 Linux kernel 4.4 和 Linux kernel 4.19 中，使用 8250 串口通用驱动，以下为主要驱动文件:
+  在 Linux kernel 4.4 和 Linux kernel 4.19 中，使用 8250 串口通用驱动，以下为主要驱动文件:
 
 ```plain
-drivers/tty/serial/8250/8250_core.c # 8250 串口驱动核心
-drivers/tty/serial/8250/8250_dw.c # Synopsis DesignWare 8250 串口驱动
-drivers/tty/serial/8250/8250_dma.c # 8250 串口 DMA 驱动
-drivers/tty/serial/8250/8250_port.c # 8250 串口端口操作
-drivers/tty/serial/8250/8250_early.c # 8250 串口 early console 驱动
+drivers/tty/serial/8250/8250_core.c          # 8250 串口驱动核心
+drivers/tty/serial/8250/8250_dw.c            # Synopsis DesignWare 8250 串口驱动
+drivers/tty/serial/8250/8250_dma.c           # 8250 串口 DMA 驱动
+drivers/tty/serial/8250/8250_port.c          # 8250 串口端口操作
+drivers/tty/serial/8250/8250_early.c         # 8250 串口 early console 驱动
 ```
 
 ### 2.2 menuconfig 配置
@@ -48,7 +49,7 @@ Device Drivers --->
         Serial drivers --->
 ```
 
-建议使用 Rockchip SDK 中提供的 UART 默认配置｡
+  建议使用 Rockchip SDK 中提供的 UART 默认配置｡
 
 ### 2.3 dts 配置
 
@@ -94,7 +95,7 @@ UART 的板级 dts 配置只有以下参数允许修改:
 
   
 
-例如，打开 RK3568 UART1, 打开 dma, 配置打开了硬件自动流控的 UART1 的 tx、rx、cts、rts 的 iomux 为 group0, 在板级 dts 里的配置如下:
+  例如，打开 RK3568 UART1, 打开 dma, 配置打开了硬件自动流控的 UART1 的 tx、rx、cts、rts 的 iomux 为 group0, 在板级 dts 里的配置如下:
 
 ```plain
 &uart1 {
@@ -105,31 +106,31 @@ UART 的板级 dts 配置只有以下参数允许修改:
 };
 ```
 
-需要注意，参数 pinctrl - 0 中对于硬件自动流控的操作仅仅是配置引脚 iomux, 实际使能硬件自动流控的操作在 UART 驱动中，如果不需要使用硬件自动流控，cts 和 rts 引脚的 iomux 配置可以去掉｡
+  需要注意，参数 pinctrl - 0 中对于硬件自动流控的操作仅仅是配置引脚 iomux, 实际使能硬件自动流控的操作在 UART 驱动中，如果不需要使用硬件自动流控，cts 和 rts 引脚的 iomux 配置可以去掉｡
 
 ### 2.4 波特率配置
 
   UART 波特率 = 工作时钟源 / 内部分频系数 / 16｡当工作时钟源由 24M 晶振直接提供时，UART 将使用内部分频系数得到需要的波特率｡当工作时钟源由 CRU 模块通过 PLL 分频提供时，UART 波特率一般为工作时钟源的 1/16｡UART 实际允许配置的波特率和此波特率下数据传输的稳定性在软件上主要由 UART 工作时钟分频策略决定｡
 
-目前，UART 驱动会根据配置的波特率大小自动去获取需要的工作时钟频率，可以通过以下命令查询到 UART 工作时钟频率:
+  目前，UART 驱动会根据配置的波特率大小自动去获取需要的工作时钟频率，可以通过以下命令查询到 UART 工作时钟频率:
 
 ```plain
 cat /sys/kernel/debug/clk/clk_summary | grep uart
 ```
 
-Rockchip UART 对常用的波特率，如 115200､460800､921600､1500000､3000000､4000000 等确保稳定支持｡对于一些特殊的波特率，可能需要修改工作时钟分频策略才能支持｡
+  Rockchip UART 对常用的波特率，如 115200､460800､921600､1500000､3000000､4000000 等确保稳定支持｡对于一些特殊的波特率，可能需要修改工作时钟分频策略才能支持｡
 
 ### 2.5 使用 DMA
 
   UART 使用 DMA 传输模式只有在数据量很大时才会产生较为明显的减轻 CPU 负载的效果｡一般情况下，和使用中断传输模式相比，UART 使用 DMA 传输模式并不一定能提高数据传输速度｡一方面，现在 CPU 性能都很高，传输瓶颈在外设｡另一方面，启动 DMA 需要消耗额外的资源，并且由于 UART 数据存在长度不确定的特性，会使 DMA 传输效率下降｡
 
-因此，建议一般情况下使用默认中断传输模式，会有以下打印:
+  因此，建议一般情况下使用默认中断传输模式，会有以下打印:
 
 ```plain
 failed to request DMA, use interrupt mode
 ```
 
-在 DMA 通道资源紧张的使用场景下，可以考虑关掉 TX 的 DMA 传输，会有以下打印:
+  在 DMA 通道资源紧张的使用场景下，可以考虑关掉 TX 的 DMA 传输，会有以下打印:
 
 ```plain
 got rx dma channels only
@@ -149,7 +150,8 @@ got rx dma channels only
 };
 ```
 
-注意，串口唤醒系统需要同时修改 trust 固件，请联系 Rockchip 以获取支持｡
+> 注意：串口唤醒系统需要同时修改 trust 固件，请联系 Rockchip 以获取支持｡
+>
 
 ### 2.8 设备注册
 
@@ -159,7 +161,7 @@ got rx dma channels only
 fe650000.serial: ttyS1 at MMIO 0xfe650000 (irq = 67, base_baud = 1500000) is a 16550A
 ```
 
-普通串口设备将会根据 dts 中的 aliase 来对串口进行编号，对应注册成 ttySx 设备｡dts 中的 aliases 如下:
+  普通串口设备将会根据 dts 中的 aliase 来对串口进行编号，对应注册成 ttySx 设备｡dts 中的 aliases 如下:
 
 ```plain
 aliases {
@@ -171,7 +173,7 @@ aliases {
 }
 ```
 
-如果需要把 uart3 注册成 ttyS1, 可以进行以下修改:
+  如果需要把 uart3 注册成 ttyS1, 可以进行以下修改:
 
 ```plain
 aliases {
@@ -191,8 +193,8 @@ aliases {
 
 ```plain
 drivers/staging/android/fiq_debugger/fiq_debugger.c # 驱动文件
-drivers/soc/rockchip/rk_fiq_debugger.c 				# kernel 4.4 及之后的平台实现
-arch/arm/mach-rockchip/rk_fiq_debugger.c 			# kernel 3.10 平台实现
+drivers/soc/rockchip/rk_fiq_debugger.c              # kernel 4.4 及之后的平台实现
+arch/arm/mach-rockchip/rk_fiq_debugger.c            # kernel 3.10 平台实现
 ```
 
 ### 3.2 menuconfig 配置
@@ -205,7 +207,7 @@ Device Drivers --->
         Android --->
 ```
 
-建议使用 Rockchip SDK 默认配置｡
+  建议使用 Rockchip SDK 默认配置｡
 
 ### 3.3 dts 配置
 
@@ -260,14 +262,14 @@ adb push send_0x55 /data
 adb push send_00_ff /data
 ```
 
-在开发板上修改测试程序权限:
+  在开发板上修改测试程序权限:
 
 ```plain
 su
 chmod +x /data/ts_uart.uart
 ```
 
-使用以下命令可以获取程序帮助:
+  使用以下命令可以获取程序帮助:
 
 ```plain
 console:/ #./data/ts_uart.uart
@@ -330,7 +332,7 @@ send:1172, receive:1172 total:1172 # 收发数据一致,测试成功
 send:3441, receive:3537 total:3441 # 收发数据不一致,测试失败
 ```
 
-如果测试失败，说明当前串口存在问题或者有其他程序也在使用同一个串口｡可以使用以下命令查看哪些程序打开了这个串口:
+  如果测试失败，说明当前串口存在问题或者有其他程序也在使用同一个串口｡可以使用以下命令查看哪些程序打开了这个串口:
 
 ```plain
 lsof | grep ttyS1
@@ -344,6 +346,6 @@ lsof | grep ttyS1
 ./data/ts_uart.uart s ./data/send_0x55 1500000 1 0 0 /dev/ttyS1
 ```
 
-当 CTS 电平被拉高时，发送数据阻塞｡当释放 CTS 电平为低电平时，被阻塞的数据完成发送｡
+  当 CTS 电平被拉高时，发送数据阻塞｡当释放 CTS 电平为低电平时，被阻塞的数据完成发送｡
 
-**验证 RTS**：通过测量 RTS 引脚电平是否能够正常拉高和拉低来确认｡
+**  验证 RTS**：通过测量 RTS 引脚电平是否能够正常拉高和拉低来确认｡

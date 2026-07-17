@@ -6,17 +6,17 @@ sidebar_position: 1
 
   rockchip 支持两种升级方案，一种是Recovery模式升级，一种是Linux A/B模式升级。本章节仅介绍Recovery模式升级。
 
-RK3506 支持通过OTA（Over-the-Air）技术进行升级。通过执行OTA命令，用户可以方便的通过SD卡/U盘/网络来对固件进行升级更新。
+  RK3506 支持通过OTA（Over-the-Air）技术进行升级。通过执行OTA命令，用户可以方便的通过SD卡/U盘/网络来对固件进行升级更新。
 
-如果用户不需要升级整个固件，只需要升级应用程序，我们可以通过编写脚本来实现用户应用程序的升级。
+  如果用户不需要升级整个固件，只需要升级应用程序，我们可以通过编写脚本来实现用户应用程序的升级。
 
-下面我们分别介绍OTA升级固件功能和升级用户应用程序功能。
+  下面我们分别介绍OTA升级固件功能和升级用户应用程序功能。
 
-**注：自2026年1月22日起，SDK已更新，修复了NAND版本无法OTA升级的问题。RK3506所有系列，都支持OTA升级功能，不受存储类型的限制。**
+> **注：自2026年1月22日起，SDK已更新，修复了NAND版本无法OTA升级的问题。RK3506所有系列，都支持OTA升级功能，不受存储类型的限制。**
 
-**如果开发板硬件有硬件看门狗，请短接看门狗跳线帽，禁用硬件看门狗功能后再进行如下操作。否则会OTA升级失败。**
+  **如果开发板硬件有硬件看门狗，请短接看门狗跳线帽，禁用硬件看门狗功能后再进行如下操作。否则会OTA升级失败。**
 
-**可参考**`**sdk\docs\cn\Linux\Recovery**`**目录，瑞芯微官方的手册关于OTA升级的相关介绍。**
+  **可参考**`**sdk\docs\cn\Linux\Recovery**`**目录，瑞芯微官方的手册关于OTA升级的相关介绍。**
 
 ## 1. OTA升级
 
@@ -90,27 +90,26 @@ LOG_INFO: --ui_rotation          UI rotation,has 4 angles(0-3).
 -   如果升级`misc`分区，指定`partition=0x200`；
 -   如果升级`userdata`分区，指定`partition=0x100`；
 
-还可以指定版本文件等参数，在这里我们不过多介绍，详情可查看瑞芯微官方文档。
+  还可以指定版本文件等参数，在这里我们不过多介绍，详情可查看瑞芯微官方文档。
 
-  
-
-下面针对本地升级，使用以下命令示例升级内核，指定--partition参数为0x80000：
+  下面针对本地升级，使用以下命令示例升级内核，指定--partition参数为0x80000：
 
 ```shell
 updateEngine --image_url=/mnt/udisk/update.img --misc=update --partition=0x80000 --reboot &
 ```
 
-如果缺省--partition参数，将会设置--partition为默认值，0x3FFC00。使用以下命令可升级整个系统（loader 和parameter除外），userdata分区将会保留一些出厂设置，该分区默认不会升级。在不指定--partition时，userdata分区将默认不会升级。
+  如果缺省--partition参数，将会设置--partition为默认值，0x3FFC00。使用以下命令可升级整个系统（loader 和parameter除外），userdata分区将会保留一些出厂设置，该分区默认不会升级。在不指定--partition时，userdata分区将默认不会升级。
 
 ```shell
 updateEngine --image_url=/mnt/udisk/test/update.img --misc=update  --reboot &
 ```
 
-注意：
-
--   **image\_url 路径必须存在固件，否则升级可能不成功**
--   可指定partion进行分区指定升级
--   升级后，image\_url下的OTA升级固件将会被删除
+> 注意：
+>
+> -   image\_url 路径必须存在固件，否则升级可能不成功
+> -   可指定partion进行分区指定升级
+> -   升级后，image\_url下的OTA升级固件将会被删除
+>
 
 ### 1.2 OTA升级流程介绍
 
@@ -123,7 +122,7 @@ updateEngine --image_url=/mnt/udisk/test/update.img --misc=update  --reboot &
 ```shell
 # updateEngine --misc=update --image_url=固件地址 --partition=0x3FFC00 --version_url=版本文件地址 --savepath=保存的固件地址 --reboot
 
-  updateEngine --image_url=http://172.16.21.110:8080/linuxab/update.img --misc=update --reboot &
+updateEngine --image_url=http://172.16.21.110:8080/linuxab/update.img --misc=update --reboot &
 
 ```
 
@@ -167,15 +166,16 @@ mount /dev/sda1 /mnt/udisk
 
 -   选择相应的掩码，升级指定的分区
 
-使用以下命令进行升级，系统将会对固件进行校验后，进行升级，升级成功后，将会重启。
+  使用以下命令进行升级，系统将会对固件进行校验后，进行升级，升级成功后，将会重启。
 
-注意：**必须保证mage\_url 路径中固件有效，否则OTA升级可能会失败**。
+> 注意：**必须保证mage\_url 路径中固件有效，否则OTA升级可能会失败**。
+>
 
 ```plain
 updateEngine --image_url=/mnt/udisk/update.img --misc=update  --partition=0x80000 --reboot &
 ```
 
-升级时，串口打印log如下：
+  升级时，串口打印log如下：
 
 ```plain
 root@rk3506-buildroot:/# updateEngine --image_url=/mnt/udisk/test/update.img --misc=update  --reboot &
@@ -550,26 +550,26 @@ Total: 445.895/515.99 ms
 
   HD-RK3506系列，可直接通过U盘或SD卡升级用户应用程序，假设用户APP可执行文件名为myapp，在/root目录。
 
-下方展示插上U盘，自动挂载U盘后，自动从U盘查找升级文件，备份旧程序后，升级新的应用程序的脚本。
+  下方展示插上U盘，自动挂载U盘后，自动从U盘查找升级文件，备份旧程序后，升级新的应用程序的脚本。
 
 ```plain
 #!/bin/sh
 
-USB_DEV="/dev/sda1"								# U盘挂载节点
-MOUNT_POINT="/mnt/udisk"					# U盘挂载目录
-APP_NAME="myapp"        					# 应用程序名
+USB_DEV="/dev/sda1"                         # U盘挂载节点
+MOUNT_POINT="/mnt/udisk"                    # U盘挂载目录
+APP_NAME="myapp"                            # 应用程序名
 TARGET="/root/$APP_NAME"
 
 echo "=== USB Upgrade Tool ==="
 
 # 1. 检查 U盘设备是否存在
-  if [ ! -b "$USB_DEV" ]; then
+if [ ! -b "$USB_DEV" ]; then
     echo "USB device $USB_DEV not found!"
     exit 1
 fi
 
 # 2. 挂载 U盘
-  echo "Mounting USB..."
+echo "Mounting USB..."
 mount | grep "$MOUNT_POINT" >/dev/null 2>&1
 if [ $? -ne 0 ]; then
     mount "$USB_DEV" "$MOUNT_POINT"
@@ -580,7 +580,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 3. 查找升级文件
-  if [ ! -f "$MOUNT_POINT/$APP_NAME" ]; then
+if [ ! -f "$MOUNT_POINT/$APP_NAME" ]; then
     echo "No upgrade file found on USB: $APP_NAME"
     umount "$MOUNT_POINT"
     exit 1
@@ -589,31 +589,31 @@ fi
 echo "Found upgrade file!"
 
 # 4. 备份旧程序
-  if [ -f "$TARGET" ]; then
+if [ -f "$TARGET" ]; then
     echo "Backing up old app..."
     cp "$TARGET" "$TARGET.bak"
 fi
 
 # 5. 覆盖新程序
-  echo "Copying new version..."
+echo "Copying new version..."
 cp "$MOUNT_POINT/$APP_NAME" "$TARGET"
 chmod +x "$TARGET"
 
 echo "Upgrade complete."
 
 # 6. 卸载 U盘
-  umount "$MOUNT_POINT"
+umount "$MOUNT_POINT"
 
 # 7. 可选：重启系统
 # reboot
 
-  exit 0
+exit 0
 
 ```
 
-首先需要在U盘中放置myapp，为脚本自定义的应用程序名称，为新的应用程序，然后插入U盘。
+  首先需要在U盘中放置myapp，为脚本自定义的应用程序名称，为新的应用程序，然后插入U盘。
 
-运行以下命令，直接升级应用程序。
+  运行以下命令，直接升级应用程序。
 
 ```plain
 root@rk3506-buildroot:~# update_APP.sh
@@ -623,9 +623,8 @@ Found upgrade file!
 Backing up old app...
 Copying new version...
 Upgrade complete.
-
 ```
 
-通过运行截图可以看到，升级前myapp的MD5值和升级后myapp的MD5值不同，备份的应用程序与升级前的myapp应用程序MD5值相同，说明升级成功。
+  通过运行截图可以看到，升级前myapp的MD5值和升级后myapp的MD5值不同，备份的应用程序与升级前的myapp应用程序MD5值相同，说明升级成功。
 
 <img src={require('./images/01-otaupgradeguide-01.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>

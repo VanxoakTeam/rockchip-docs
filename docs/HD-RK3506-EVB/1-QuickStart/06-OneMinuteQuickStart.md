@@ -16,7 +16,7 @@ sidebar_position: 6
 
   使用df命令查看系统上磁盘使用情况，如下为默认磁盘使用情况，仅供参考。
 
-```plain
+```shell
 root@rk3506-buildroot:/# df -h
 Filesystem                Size      Used Available Use% Mounted on
 ubi0:rootfs             136.5M     72.0M     64.5M  53% /
@@ -31,7 +31,7 @@ tmpfs                    48.8M         0     48.8M   0% /dev/shm
 
   使用free命令查看内存使用情况，如下所示。
 
-```plain
+```shell
 root@rk3506-buildroot:/# free -h
               total        used        free      shared  buff/cache   available
 Mem:          97.6M       27.8M       46.7M      252.0K       23.1M       64.6M
@@ -43,7 +43,7 @@ Swap:             0           0           0
 
   当需要关机时，如果有数据存储操作，为了确保数据完全写入，可执行sync 命令：
 
-```plain
+```shell
 root@rk3506-buildroot:/# sync
 ```
 
@@ -51,7 +51,7 @@ root@rk3506-buildroot:/# sync
 
   也可以执行 reboot 命令重启开发板：
 
-```plain
+```shell
 root@rk3506-buildroot:/# reboot
 ```
 
@@ -61,14 +61,14 @@ root@rk3506-buildroot:/# reboot
 
   使用`uname -a`命令可以查看内核版本信息：
 
-```plain
+```shell
 root@rk3506-buildroot:/# uname -a
 Linux rk3506-buildroot 6.1.99 #16 SMP PREEMPT Tue Dec 31 10:58:14 CST 2024 armv7l GNU/Linux
 ```
 
   也可以通过查看`/proc/version` 文件，获得系统内核版本信息：
 
-```plain
+```shell
 root@rk3506-buildroot:/# cat /proc/version
 Linux version 6.1.99 (vanxoak@6fe447f5e3d9) (arm-none-linux-gnueabihf-gcc (GNU Toolchain for the A-profile Architecture 10.3-2021.07 (arm-10.29)) 10.3.1 20210621, GNU ld (GNU Toolchain for the A-profile Architecture 10.3-2021.07 (arm-10.29)) 2.36.1.20210621) #16 SMP PREEMPT Tue Dec 31 10:58:14 CST 2024
 ```
@@ -79,7 +79,7 @@ Linux version 6.1.99 (vanxoak@6fe447f5e3d9) (arm-none-linux-gnueabihf-gcc (GNU T
 
   通过查看`/proc/partitions` 文件，可以获得系统所有的分区信息：
 
-```plain
+```shell
 root@rk3506-buildroot:/# cat /proc/partitions
 major minor  #blocks  name
 
@@ -99,7 +99,7 @@ major minor  #blocks  name
 
   其中CPU Serial为CPU的唯一ID，即使是重新刷机，这个唯一ID也不会变。
 
-```plain
+```shell
 root@rk3506-buildroot:/# cat /proc/cpuinfo
 processor       : 0
 model name      : ARMv7 Processor rev 5 (v7l)
@@ -134,7 +134,6 @@ CPU revision    : 5
 Hardware        : Generic DT based system
 Revision        : 0000
 Serial          : d3fb587707590f26
-root@rk3506-buildroot:/# 
 ```
 
   其中`BogoMIPS`参数可以用来衡量处理器的运算能力，表示CPU每秒钟可以处理的指令数，单位百万。
@@ -143,7 +142,7 @@ root@rk3506-buildroot:/#
 
   通过查看`mount`命令，可以获得文件系统的挂载信息：
 
-```plain
+```shell
 root@rk3506-buildroot:/# mount
 ubi0:rootfs on / type ubifs (rw,relatime,assert=read-only,ubi=0,vol=0)
 devtmpfs on /dev type devtmpfs (rw,relatime,size=49880k,nr_inodes=12470,mode=755)
@@ -160,7 +159,6 @@ pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
 /dev/ubi7_0 on /userdata type ubifs (rw,relatime,assert=read-only,ubi=7,vol=0)
 /dev/ubi6_0 on /oem type ubifs (rw,relatime,assert=read-only,ubi=6,vol=0)
 adb on /dev/usb-ffs/adb type functionfs (rw,relatime)
-
 ```
 
 ## 7. 心跳灯的操控
@@ -169,7 +167,7 @@ adb on /dev/usb-ffs/adb type functionfs (rw,relatime)
 
 ```shell
 # 开灯
-  echo 0 > /sys/class/leds/run/brightness
+echo 0 > /sys/class/leds/run/brightness
 #关灯
 echo 1 > /sys/class/leds/run/brightness
 ```

@@ -14,7 +14,7 @@ sidebar_position: 4
 
   使用TYPE-C线连接USB Device端口到PC的USB口，如果是Linux平台，就可以直接使用adb操作开发板了；如果是Windows平台，需要先安装USB设备驱动，才能使用adb。
 
-<img src={require('./images/04-adbdebugging-01.png').default} alt="USB供电烧录.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
+<img src={require('./images/04-adbdebugging-01.png').default} alt="USB供电烧录.png" style={{display: 'block', margin: '20px auto', maxWidth: '25%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
 ## 2. 驱动安装
 

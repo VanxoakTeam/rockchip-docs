@@ -53,12 +53,12 @@ root@192.168.1.10's password:root
 PS F:\> adb push file_name /oem
 ```
 
-  file\_name为电脑当前路径下的文件，/oem为开发板文件系统上的一个文件夹。
+> file\_name为电脑当前路径下的文件，/oem为开发板文件系统上的一个文件夹。
 
-​	从开发板下载文件到电脑：
+  从开发板下载文件到电脑：
 
 ```shell
 PS F:\> adb pull /oem/file_name .
 ```
 
-​	/oem为开发板文件系统上的一个文件夹，file\_name为电脑当前路径下的文件。
+> /oem为开发板文件系统上的一个文件夹，file\_name为电脑当前路径下的文件。

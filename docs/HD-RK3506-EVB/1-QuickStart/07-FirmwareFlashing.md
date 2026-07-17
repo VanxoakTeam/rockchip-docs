@@ -14,16 +14,16 @@ sidebar_position: 7
 
 ### 1.1 硬件部分
 
-  1.  开发板
-2.  调试串口及相应的连接线缆（TTL电平）
-3.  USB-C数据线（供电以及烧录）
+- 开发板
+- 调试串口及相应的连接线缆（TTL电平）
+- USB-C数据线（供电以及烧录）
 
 ### 1.2 软件部分
 
-  1.  Windows 7以上系统
-2.  驱动助手DriverAssitant
-3.  瑞芯微烧录工具RKDevTool\_Release 3.31
-4.  系统固件文件
+- Windows 7以上系统
+- 驱动助手DriverAssitant
+- 瑞芯微烧录工具RKDevTool\_Release 3.31
+- 系统固件文件
 
 > 注：相关软件资料软件可以从[资料下载](https://vanxoak.yuque.com/wb353n/lc7mxy/yz864tupkga1qzq5)进行下载
 
@@ -48,13 +48,14 @@ sidebar_position: 7
 
   解压上面提供的DriverAssitant\_v5.13.zip压缩包，进入DriverAssitant\_v5.13目录，双击运行DriverInstall.exe进行安装：
 
-<img src={require('./images/07-firmwareflashing-01.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
+<img src={require('./images/07-firmwareflashing-01.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '50%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
   点击“驱动安装”，若出现windows安全提醒，点击信任后继续安装。
 
-<img src={require('./images/07-firmwareflashing-08.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
-
-<img src={require('./images/07-firmwareflashing-09.png').default} alt="安装成功" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
+<div style={{display: 'flex', justifyContent: 'center', gap: '20px', margin: '20px 0'}}>
+  <img src={require('./images/07-firmwareflashing-08.png').default} alt="驱动安装" style={{maxWidth: '25%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
+  <img src={require('./images/07-firmwareflashing-09.png').default} alt="安装成功" style={{maxWidth: '25%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
+</div>
 
 ### 2.2 解压烧写工具
 
@@ -72,7 +73,7 @@ sidebar_position: 7
 
   使用镊子短接RECOVERY按键，然后在使用Type-c连接上PC机与USB-Device，待电脑上位机RKDevTool软件检测到设备，显示"发现一个LOADER设备"后，再断开RECOVERY短接工具。
 
-<img src={require('./images/07-firmwareflashing-12.png').default} alt="RECOVER 示意图" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
+<img src={require('./images/07-firmwareflashing-12.png').default} alt="RECOVER 示意图" style={{display: 'block', margin: '20px auto', maxWidth: '50%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
 <img src={require('./images/07-firmwareflashing-13.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
@@ -106,7 +107,7 @@ sidebar_position: 7
 
   在开发过程中，我们有可能会碰到无法进入**Loader**模式的情况，例如系统固件损坏不能正常进入系统。这时我们则需要采用MASKROM模式进行烧写，用跳线帽短接核心板上**MASKROM**焊接点，然后重新上电。**MASKROM**位置如下图：
 
-<img src={require('./images/07-firmwareflashing-03.png').default} alt="MASKROM 示意图" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
+<img src={require('./images/07-firmwareflashing-03.png').default} alt="MASKROM 示意图" style={{display: 'block', margin: '20px auto', maxWidth: '50%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
   发现MASKROM设备后拔出跳线帽，然后点接执行刷机，软件操作与Loade模式一样。需注意的是，**此模式刷机必须勾选Loader 分区。**
 
@@ -120,7 +121,7 @@ sidebar_position: 7
 
   进入SDK目录查看 tools/linux/Linux\_Pack\_Firmware/rockdev/rk3506-package-file文件，其中未被#注释的固件都会在打包过程中被打包进update.img。
 
-```plain
+```shell
 # NAME		Relative path
 #
 #HWDEF		HWDEF
@@ -145,7 +146,7 @@ misc		Image/misc.img
 
   一般此文件无须修改，将我们自己的制作的固件放入`rockdev`，固件名与package-file文件一样：
 
-```plain
+```shell
 vanxoak@bab121111f64:/work/bsp/rk3506/rk3506-linux6.1-sdk_release$  ls rockdev/
 boot.img           misc.img  parameter.txt  uboot.img
 MiniLoaderAll.bin  oem.img   recovery.img   rootfs.img   userdata.img

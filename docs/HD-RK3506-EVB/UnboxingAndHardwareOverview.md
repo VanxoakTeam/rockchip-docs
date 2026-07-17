@@ -173,11 +173,11 @@ sidebar_position: 1
 
 **RM\_IO接口是RK3506的IO 矩阵，具有如下特性：**
 
--   RM\_IOn（n=0~31）可以从function IDn（n=0~98）任选其中一个功能，并且function IDn（n=0~98）的每个功能，只能映射于其中一个RM\_IOn（n=0~31）。  
-    举例：RM\_IO0 选择I2C0\_SCL，则I2C0\_SCL 不能再映射到RM\_IOn（n=1~31）中；RM\_IO1 选择I2C0\_SDA，则I2C0\_SDA 不能再映射到RM\_IO0、RM\_IOn（n=2~31）中。
--   由于RM\_IOn（n=0~31）分布在PMUIO、VCCIO1 两个电源域，但对于同一个功能，并且有较高时序要求的，**不建议跨电源域使用。**例如，SAI、PDM、SPI 信号。  
-    举例：不要将SAI0\_SCLK 分配在PMUIO 电源域，而将SAI0\_SDI0 分配在VCCIO1 域。  
-    function ID n（n=0~98）具体功能见下图所示：
+-   RM\_IOn（n=0\~31）可以从function IDn（n=0\~98）任选其中一个功能，并且function IDn（n=0\~98）的每个功能，只能映射于其中一个RM\_IOn（n=0\~31）。
+    举例：RM\_IO0 选择I2C0\_SCL，则I2C0\_SCL 不能再映射到RM\_IOn（n=1\~31）中；RM\_IO1 选择I2C0\_SDA，则I2C0\_SDA 不能再映射到RM\_IO0、RM\_IOn（n=2\~31）中。
+-   由于RM\_IOn（n=0\~31）分布在PMUIO、VCCIO1 两个电源域，但对于同一个功能，并且有较高时序要求的，**不建议跨电源域使用。**例如，SAI、PDM、SPI 信号。
+    举例：不要将SAI0\_SCLK 分配在PMUIO 电源域，而将SAI0\_SDI0 分配在VCCIO1 域。
+    function IDn（n=0\~98）具体功能见下图所示：
 
 <img src={require('./images/unboxingandhardwareoverview-03.png').default} alt="image13.png" style={{display: 'block', margin: '20px auto', maxWidth: '100%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 

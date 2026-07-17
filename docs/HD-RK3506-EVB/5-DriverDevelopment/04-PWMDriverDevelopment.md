@@ -10,7 +10,7 @@ sidebar_position: 4
 
   驱动文件所在位置: `drivers/pwm/pwm-rockchip.c`
 
-3.10 和 4.4 及以上版本内核下驱动文件名字是同一个，pwm-rockchip.c 只支持 Continuous mode, 但是里面的代码有些差别｡4.4 及以上内核版本将 pwm\_config (),pwm\_enable () 和 pwm\_disable () 包装在 pwm\_apply\_state () 函数里面，这样做的好处是可以一次改变几个 PWM 参数，3.10 内核的 PWM 驱动还是原来的接口｡
+  3.10 和 4.4 及以上版本内核下驱动文件名字是同一个，pwm-rockchip.c 只支持 Continuous mode, 但是里面的代码有些差别｡4.4 及以上内核版本将 pwm\_config (),pwm\_enable () 和 pwm\_disable () 包装在 pwm\_apply\_state () 函数里面，这样做的好处是可以一次改变几个 PWM 参数，3.10 内核的 PWM 驱动还是原来的接口｡
 
 ### 1.2 DTS 节点配置
 
@@ -33,7 +33,7 @@ bl: backlight {
 
 <img src={require('./images/04-pwmdriverdevelopment-01.png').default} alt="image-20241225190921502-e7b73d11a52bf5e40a3516661c81e92f.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
-以上是 Continuous mode 的软件流程，如果还想了解其他，在 TRM 中 PWM 章节部分的 Application Notes 小节，还有各模式下的寄存器配置流程，可以参考，这边就不再详细叙述｡
+  以上是 Continuous mode 的软件流程，如果还想了解其他，在 TRM 中 PWM 章节部分的 Application Notes 小节，还有各模式下的寄存器配置流程，可以参考，这边就不再详细叙述｡
 
 ## 3. PWM 使用
 
@@ -44,7 +44,7 @@ bl: backlight {
 -   duty\_cycle: 在 normal 模式下，表示一个周期内高电平持续的时间 (单位：纳秒), 在 reversed 模式下，表示一个周期中低电平持续的时间 (单位：纳秒);
 -   period: 表示 pwm 波的周期 (单位：纳秒);
 
-以下是 pwmchip0 的例子，设置 pwm0 输出频率 100K, 占空比 50%, 极性为正极性:
+  以下是 pwmchip0 的例子，设置 pwm0 输出频率 100K, 占空比 50%, 极性为正极性:
 
 ```plain
 cd /sys/class/pwm/pwmchip0/
@@ -119,7 +119,7 @@ backlight:backlight{
 echo xxx > sys/class/backlight/backlight/brightness
 ```
 
-当 PWM 设置为正极性时，可以通过 `echo xxx > sys/class/backlight/backlight/brightness` 到背光节点，xxx 的范围为 0~255, 这时观察亮度变化，如 x 为背光亮度为 0 的点，y 为客户接受的背光最亮的点｡这时重新调整 brightness-level 表，就可以将数组第一个值改为 x, 最大值改为 y, 中间值需均匀变化，凑成 256 个元素，且有一个元素值为 255｡当 PWM 为负极性时，则反之｡
+  当 PWM 设置为正极性时，可以通过 `echo xxx > sys/class/backlight/backlight/brightness` 到背光节点，xxx 的范围为 0~255, 这时观察亮度变化，如 x 为背光亮度为 0 的点，y 为客户接受的背光最亮的点｡这时重新调整 brightness-level 表，就可以将数组第一个值改为 x, 最大值改为 y, 中间值需均匀变化，凑成 256 个元素，且有一个元素值为 255｡当 PWM 为负极性时，则反之｡
 
 ## 5. 常见问题
 

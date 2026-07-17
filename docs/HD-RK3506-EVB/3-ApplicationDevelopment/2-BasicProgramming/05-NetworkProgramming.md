@@ -6,7 +6,8 @@ sidebar_position: 5
 
 :::tip 提示
 
-本指南将指导您如何编写**网络程序**代码。
+本指南将指导您如何编写**网络程序**代码。
+
 
 :::
 
@@ -14,7 +15,7 @@ sidebar_position: 5
 
   套接字（socket）是 Linux 下的一种进程间通信机制（socket IPC），使用 socket IPC 可以使得在不同主机上的应用程序之间进行通信（网络通信），当然也可以是同一台主机上的不同应用程序。socket IPC 通常使用客户端 &lt;---&gt; 服务器这种模式完成通信，多个客户端可以同时连接到服务器中，与服务器之间完成数据交互。
 
-内核向应用层提供了 socket 接口，我们只需要调用 socket 接口开发自己的应用程序即可！socket 是应用层与 TCP/IP 协议通信的中间软件抽象层，它是一组接口。
+  内核向应用层提供了 socket 接口，我们只需要调用 socket 接口开发自己的应用程序即可！socket 是应用层与 TCP/IP 协议通信的中间软件抽象层，它是一组接口。
 
 ## 2. TCP编程介绍
 
@@ -31,18 +32,18 @@ sidebar_position: 5
 int socket(int domain, int type, int protocol)
 ```
 
-socket()函数类似于 open()函数，它用于创建一个网络通信端点（打开一个网络通信），如果成功则返回 。
+  socket()函数类似于 open()函数，它用于创建一个网络通信端点（打开一个网络通信），如果成功则返回 。
 
-一个网络文件描述符，通常把这个文件描述符称为 socket 描述符（socket descriptor），这个 socket 描述符跟文件描述符一样，后续的操作都有用到它，把它作为参数，通过它来进行一些读写操作。该函数包括3个参数：
+  一个网络文件描述符，通常把这个文件描述符称为 socket 描述符（socket descriptor），这个 socket 描述符跟文件描述符一样，后续的操作都有用到它，把它作为参数，通过它来进行一些读写操作。该函数包括3个参数：
 
 -   参数 domain 用于指定一个通信域；这将选择将用于通信的协议族，对于tcp/ip协议来说，通常选择AF\_INET就可以了。如果IP 协议的版本支持 IPv6，那么可以选择 AF\_INET6。
 -   参数 type 指定套接字的类型。
 -   参数 protocol 通常设置为 0，表示为给定的通信域和套接字类型选择默认协议。
 -   当对同一域和套接字类型支持多个协议时，可以使用 protocol 参数选择一个特定协议。
 
-调用socket()与调用open()函数很类似，调用成功情况下，均会返回用于文件I/O 的文件描述符，只不过对于socket()来说，其返回的文件描述符一般称为socket 描述符。当不再需要该文件描述符时，可调用close()函数来关闭套接字，释放相应的资源。如果socket()函数调用失败，则会返回-1，并且会设置 errno 变量以指示错误类型。
+  调用socket()与调用open()函数很类似，调用成功情况下，均会返回用于文件I/O 的文件描述符，只不过对于socket()来说，其返回的文件描述符一般称为socket 描述符。当不再需要该文件描述符时，可调用close()函数来关闭套接字，释放相应的资源。如果socket()函数调用失败，则会返回-1，并且会设置 errno 变量以指示错误类型。
 
-下列是调用socket函数的一般过程，使用示例如下：
+  下列是调用socket函数的一般过程，使用示例如下：
 
 ```c
 int socket_fd = socket(AF_INET, SOCK_STREAM, 0);	//打开套接字 套接字类型为用于 TCP 协议
@@ -63,16 +64,16 @@ if(socket_fd < 0)
 int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 ```
 
-bind()函数用于将一个 IP 地址或端口号与一个套接字进行绑定（将套接字与地址进行关联）。一般来讲，会将一个服务器的套接字绑定到一个众所周知的地址---即一个固定的与服务器进行通信的客户端应用程序提前就知道的地址(注意这里说的地址包括 IP 地址和端口号）。
+  bind()函数用于将一个 IP 地址或端口号与一个套接字进行绑定（将套接字与地址进行关联）。一般来讲，会将一个服务器的套接字绑定到一个众所周知的地址---即一个固定的与服务器进行通信的客户端应用程序提前就知道的地址(注意这里说的地址包括 IP 地址和端口号）。
 
-因为对于客户端来说，它与服务器进行通信，首先需要知道服务器的 IP 地址以及对应的端口号。
+  因为对于客户端来说，它与服务器进行通信，首先需要知道服务器的 IP 地址以及对应的端口号。
 
 该函数包括三个参数，如下所示：
 
 -   参数socketfd是一个指定的套接字。调用 bind()函数将参数 sockfd 指定的套接字与一个地址 addr 进行绑定，成功返回 0，失败情况下返回- 1，并设置 errno 以提示错误原因。
 -   参数addr 是一个指针，指向一个struct sockaddr的变量。
 
-sockaddr 的原型如下所示
+  sockaddr 的原型如下所示
 
 ```c
 struct sockaddr {
@@ -81,9 +82,9 @@ struct sockaddr {
 }
 ```
 
-sa\_data 是一个 char 类型数组，一共 14 个字节，在这 14 个字节中就包括了 IP 地址、端口号等信息，这个结构对用户并不友好，它把这些信息都封装在了 sa\_data 数组中
+  sa\_data 是一个 char 类型数组，一共 14 个字节，在这 14 个字节中就包括了 IP 地址、端口号等信息，这个结构对用户并不友好，它把这些信息都封装在了 sa\_data 数组中
 
-一般我们在使用的时候都会使用 struct sockaddr\_in 结构体，sockaddr\_in 和 sockaddr 是并列的结构（占用的空间是一样的），指向 sockaddr\_in 的结构体的指针也可以指向 sockadd 的结构体，并代替它，而且sockaddr\_in 结构对用户将更加友好，在使用的时候进行类型转换就可以了。这个sockaddr\_in结构体如下所示：
+  一般我们在使用的时候都会使用 struct sockaddr\_in 结构体，sockaddr\_in 和 sockaddr 是并列的结构（占用的空间是一样的），指向 sockaddr\_in 的结构体的指针也可以指向 sockadd 的结构体，并代替它，而且sockaddr\_in 结构对用户将更加友好，在使用的时候进行类型转换就可以了。这个sockaddr\_in结构体如下所示：
 
 ```c
 struct sockaddr_in {
@@ -94,9 +95,9 @@ struct sockaddr_in {
 };
 ```
 
-这个结构体的第一个字段是与 sockaddr 结构体是一致的，而剩下的字段就是 sa\_data 数组连续的14 字节信息里面的内容，只不过从新定义了成员变量而已，sin\_port 字段是我们需要填写的端口号信息，而 sin\_addr字段是我们需要填写的 IP 地址信息，剩下 sin\_zero 区域的 8 字节保留未用。
+  这个结构体的第一个字段是与 sockaddr 结构体是一致的，而剩下的字段就是 sa\_data 数组连续的14 字节信息里面的内容，只不过从新定义了成员变量而已，sin\_port 字段是我们需要填写的端口号信息，而 sin\_addr字段是我们需要填写的 IP 地址信息，剩下 sin\_zero 区域的 8 字节保留未用。
 
-使用bind函数的示例如下：
+  使用bind函数的示例如下：
 
 ```c
 struct sockaddr_in socket_addr;
@@ -111,7 +112,7 @@ socket_addr.sin_port = htons(5555);
 bind(socket_fd, (struct sockaddr *)&socket_addr, sizeof(socket_addr));
 ```
 
-代码中的 htons 和 htonl 并不是函数，只是一个宏定义，主要的作用在于为了避免大小端的问题， 另外引用这些宏需要在我们的应用程序代码中包含头文件 `&lt;netinet/in.h&gt;`
+  代码中的 htons 和 htonl 并不是函数，只是一个宏定义，主要的作用在于为了避免大小端的问题， 另外引用这些宏需要在我们的应用程序代码中包含头文件 `&lt;netinet/in.h&gt;`
 
 ### 2.3 listen()函数
 
@@ -121,7 +122,7 @@ bind(socket_fd, (struct sockaddr *)&socket_addr, sizeof(socket_addr));
 int listen(int sockfd, int backlog);
 ```
 
-参数 backlog 用来描述 sockfd 的等待连接队列能够达到的最大值。这个 backlog 参数告诉内核使用这个数值作为队列的上限。而当一个客户端的连接请求到达并且该队列为满时，客户端可能会收到一个表示连接失败的错误，本次请求会被丢弃不作处理。
+  参数 backlog 用来描述 sockfd 的等待连接队列能够达到的最大值。这个 backlog 参数告诉内核使用这个数值作为队列的上限。而当一个客户端的连接请求到达并且该队列为满时，客户端可能会收到一个表示连接失败的错误，本次请求会被丢弃不作处理。
 
 ### 2.4 accept()函数
 
@@ -141,11 +142,11 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 3.  调用listen()函数让服务器进程进入监听状态，监听客户端的连接请求
 4.  调用accept()函数处理到来的连接请求
 
-accept()函数通常只用于服务器应用程序中，如果调用accept()函数时，并没有客户端请求连接（等待连 接队列中也没有等待连接的请求），此时accept()会进入阻塞状态，直到有客户端连接请求到达为止。当有 客户端连接请求到达时，accept()函数与远程客户端之间建立连接，accept()函数返回一个新的套接字。
+  accept()函数通常只用于服务器应用程序中，如果调用accept()函数时，并没有客户端请求连接（等待连 接队列中也没有等待连接的请求），此时accept()会进入阻塞状态，直到有客户端连接请求到达为止。当有 客户端连接请求到达时，accept()函数与远程客户端之间建立连接，accept()函数返回一个新的套接字。
 
-这个套接字与 socket()函数返回的套接字并不同，socket()函数返回的是服务器的套接字（以服务器为例），而accept()函数返回的套接字连接到调用 connect()的客户端，服务器通过该套接字与客户端进行数据交互，比如向客户端发送数据、或从客户端接收数据。
+  这个套接字与 socket()函数返回的套接字并不同，socket()函数返回的是服务器的套接字（以服务器为例），而accept()函数返回的套接字连接到调用 connect()的客户端，服务器通过该套接字与客户端进行数据交互，比如向客户端发送数据、或从客户端接收数据。
 
-accept()函数的关键点在于它会创建一个新的套接字，其实这个新的套接字就是与执行connect()（客户端调用 connect()向服务器发起连接请求）的客户端之间建立了连接，这个套接字代表了服务器与客户端的一个连接。如果 accept()函数执行出错，将会返回-1，并会设置 errno 以指示错误原因。
+  accept()函数的关键点在于它会创建一个新的套接字，其实这个新的套接字就是与执行connect()（客户端调用 connect()向服务器发起连接请求）的客户端之间建立了连接，这个套接字代表了服务器与客户端的一个连接。如果 accept()函数执行出错，将会返回-1，并会设置 errno 以指示错误原因。
 
 ### 2.5 connect()函数
 
@@ -158,9 +159,9 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 -   参数 addr 指定了待连接的服务器的 IP 地址以及端口号等信息
 -   参数 addrlen 指定了 addr 指向的 struct sockaddr 对象的字节大小。
 
-客户端通过 connect()函数请求与服务器建立连接，对于 TCP 连接来说，调用该函数将发生 TCP 连接的 握手过程，并最终建立一个 TCP 连接，而对于 UDP 协议来说，调用这个函数只是在 sockfd 中记录服务器 IP 地址与端口号，而不发送任何数据。
+  客户端通过 connect()函数请求与服务器建立连接，对于 TCP 连接来说，调用该函数将发生 TCP 连接的 握手过程，并最终建立一个 TCP 连接，而对于 UDP 协议来说，调用这个函数只是在 sockfd 中记录服务器 IP 地址与端口号，而不发送任何数据。
 
-函数调用成功则返回 0，失败返回-1，并设置 errno 以指示错误原因
+  函数调用成功则返回 0，失败返回-1，并设置 errno 以指示错误原因
 
 ### 2.6 发送和接受函数
 
@@ -168,9 +169,9 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 
 #### 2.6.1 接收函数
 
-  **read()函数**：
+**read()函数**：
 
-通过 read()函数从一个文件描述符中读取指定字节大小的数据并放入到指定的缓冲区中，read()调用成功将返回读取到的字节数。套接字描述符也是文件描述符，所以使用 read()函数读取网络数据时，read()函数的参数 fd 就是对应的套接字描述符。
+  通过 read()函数从一个文件描述符中读取指定字节大小的数据并放入到指定的缓冲区中，read()调用成功将返回读取到的字节数。套接字描述符也是文件描述符，所以使用 read()函数读取网络数据时，read()函数的参数 fd 就是对应的套接字描述符。
 
 **recv()函数**：
 
@@ -185,13 +186,13 @@ ssize_t recv(int sockfd, void *buf, size_t len, int flags);
 -   参数 len 指定了读取数据的字节大小
 -   参数 flags 可以指定一些标志用于控制如何接收数据。
 
-函数 recv()与 read()很相似，但是 recv()可以通过指定 flags 标志来控制如何接收数据。通常我们将flags参数设置为0。
+  函数 recv()与 read()很相似，但是 recv()可以通过指定 flags 标志来控制如何接收数据。通常我们将flags参数设置为0。
 
 #### 2.6.2 发送函数
 
-  **write()函数**：
+**write()函数**：
 
-通过 write()函数可以向套接字描述符中写入数据，函数调用成功返回写入的字节数，失败返回-1，并设置 errno 变量。
+  通过 write()函数可以向套接字描述符中写入数据，函数调用成功返回写入的字节数，失败返回-1，并设置 errno 变量。
 
 **send()**函数：
 
@@ -199,90 +200,90 @@ ssize_t recv(int sockfd, void *buf, size_t len, int flags);
 ssize_t send(int sockfd, const void *buf, size_t len, int flags);
 ```
 
-send 和 write 很相似，但是 send 可以通过参数 flags 指定一些标志，来改变处理传输数据的方式。即使 send()成功返回，也并不表示连接的另一端的进程就一定接收了数据，我们所能保证的只是当 send 成功返回时，数据已经被无错误的发送到网络驱动程序上。
+  send 和 write 很相似，但是 send 可以通过参数 flags 指定一些标志，来改变处理传输数据的方式。即使 send()成功返回，也并不表示连接的另一端的进程就一定接收了数据，我们所能保证的只是当 send 成功返回时，数据已经被无错误的发送到网络驱动程序上。
 
 ### 2.7 错误处理
 
   在 Socket 编程 中，当系统调用（如 `socket()`, `bind()`, `listen()`, `accept()`, `connect()`, `send()`, `recv()` 等）失败时，返回值通常为 `-1`。此时，可以通过全局变量 `errno` 获取具体的错误码，`errno` 包含了导致函数失败的具体原因。错误码可以通过 `perror()` 或 `strerror(errno)` 函数输出为人类可读的错误信息。
 
-以下是一些常见的错误码和其对应的含义，这些错误码可以帮助你快速诊断网络编程中的问题：
+  以下是一些常见的错误码和其对应的含义，这些错误码可以帮助你快速诊断网络编程中的问题：
 
 `**ECONNREFUSED**` **- 连接被拒绝**
 
 > **含义**：目标主机拒绝连接，通常是因为目标端口上没有服务在监听。
-> 
+>
 > **常见场景**：客户端尝试连接一个没有启动服务的服务器，或者服务器上指定端口没有开启。
-> 
+>
 > **调试方法**：
-> 
+>
 > 确认目标服务器在目标端口上是否正在运行并监听。
-> 
+>
 > 确认防火墙或其他网络设置没有阻止连接。
 
 `**ETIMEDOUT**` **- 连接超时**
 
 > **含义**：连接请求超时。客户端尝试连接服务器时，超出了指定的时间。
-> 
+>
 > **常见场景**：服务器响应缓慢或者网络不稳定，导致连接在一定时间内无法建立。
-> 
+>
 > **调试方法**：
-> 
+>
 > 检查网络连接质量，特别是在低带宽或高延迟的情况下。
-> 
+>
 > 检查服务器是否正常响应连接请求。
 
 `**EADDRINUSE**` **- 地址已被使用**
 
 > **含义**：尝试绑定（`bind()`）到一个已经被使用的地址和端口组合上，通常是端口被占用。
-> 
+>
 > **常见场景**：服务器程序已经在某个端口上运行，或同一台机器上有其他进程占用了该端口。
-> 
+>
 > **调试方法**：
-> 
+>
 > 使用 `netstat` 或 `ss` 命令检查端口是否被占用。
-> 
+>
 > 选择一个未被占用的端口进行绑定。
 
 `**EACCES**` **- 权限拒绝**
 
 > **含义**：没有权限绑定到指定的地址和端口，通常发生在使用小于 `1024` 的端口号时（需要管理员权限）。
-> 
+>
 > **常见场景**：尝试绑定到受限端口（如 80, 443）时，普通用户权限不足。
-> 
+>
 > **调试方法**：
-> 
+>
 > 确认进程是否具有足够的权限，尝试使用 `sudo` 启动程序。
 
 `**ENOTSOCK**` **- 不是一个套接字**
 
 > **含义**：指定的文件描述符不是一个有效的套接字。通常是在错误地使用了非套接字的文件描述符。
-> 
+>
 > **常见场景**：调用 `send()` 或 `recv()` 时，文件描述符不指向一个有效的套接字。
-> 
+>
 > **调试方法**：
-> 
+>
 > 检查套接字的创建和操作流程，确保文件描述符指向有效的套接字。
 
 `**EFAULT**` **- 错误的地址**
 
 > **含义**：提供给系统调用的地址无效或指针错误。
-> 
+>
 > **常见场景**：传递给 `send()` 或 `recv()` 的缓冲区指针无效。
-> 
+>
 > **调试方法**：
-> 
+>
 > 确认传递给系统调用的地址是合法的，并且指针指向的内存已正确分配。
 
 `**EHOSTUNREACH**` **- 主机不可达**
 
 > **含义**：目标主机不可达，通常是由于网络路由或连接问题。
-> 
+>
 > **常见场景**：网络配置错误、目标主机离线、路由问题。
-> 
+>
 > **调试方法**：
-> 
+>
 > 检查网络连接，使用 `ping` 命令检查目标主机是否可达。
-> 
+>
 > 检查路由设置和防火墙配置。
 
 另外使用 `perror()`函数可以在标准错误输出中打印一个错误信息，并附带上 `errno` 中保存的错误描述。`perror()` 会自动根据 `errno` 的值输出对应的错误信息。
@@ -322,7 +323,7 @@ if (sockfd < 0) {
 | 长度 | 16 位 | 数据报的总长度（包括头部和数据部分） |
 | 校验和 | 16 位 | 用于检验数据报的完整性 |
 
-**UDP 头部** 总长度为 8 字节。
+  **UDP 头部** 总长度为 8 字节。
 
 ### 3.2 UDP 与 TCP 的对比
 
@@ -455,7 +456,7 @@ int main(int argc,char *argv[])
 
     // 1- 打开套接字，得到套接字描述符
     socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (socket_fd<0) 
+    if (socket_fd<0)
     {
         perror("socket error");
         exit(EXIT_FAILURE);
@@ -467,7 +468,7 @@ int main(int argc,char *argv[])
     server_addr.sin_port = htons(SERVER_PORT);
 
     ret = bind(socket_fd, (struct sockaddr *)&server_addr, sizeof(server_addr));
-    if (ret<0) 
+    if (ret<0)
     {
         perror("bind error");
         close(socket_fd);
@@ -476,7 +477,7 @@ int main(int argc,char *argv[])
 
     // 3- 监听
     ret = listen(socket_fd, 50);
-    if (ret<0) 
+    if (ret<0)
     {
         perror("listen error");
         close(socket_fd);
@@ -485,7 +486,7 @@ int main(int argc,char *argv[])
 
     // 4- 阻塞等待客户端连接
     connect_fd = accept(socket_fd, (struct sockaddr *)&client_addr, &addrlen);
-    if (connect_fd<0) 
+    if (connect_fd<0)
     {
         perror("accept error");
         close(socket_fd);
@@ -513,7 +514,7 @@ int main(int argc,char *argv[])
         // 将读取到的数据以字符串形式打印出来
         printf("from client: %s\n", recvbuf);
         // 如果读取到"exit"则关闭套接字退出程序
-        if (0 == strncmp("exit", recvbuf, 4)) 
+        if (0 == strncmp("exit", recvbuf, 4))
         {
             printf("server exit...\n");
             close(connect_fd);
@@ -525,7 +526,7 @@ int main(int argc,char *argv[])
     close(socket_fd);
     exit(EXIT_SUCCESS);
 
-}   
+}
 ```
 
 运行程序，使用网络调试助手进行连接，网络调试助手作为客户端，板卡作为服务器，进行连接，传输数据。
@@ -564,7 +565,7 @@ int main(int argc,char *argv[])
 
     // 1- 打开套接字，得到套接字描述符
     socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (socket_fd<0) 
+    if (socket_fd<0)
     {
         perror("socket error");
         exit(EXIT_FAILURE);
@@ -577,7 +578,7 @@ int main(int argc,char *argv[])
 
     ret = connect(socket_fd, (struct sockaddr*)&server_addr, sizeof(server_addr));
 
-    if (ret <0) 
+    if (ret <0)
     {
         perror("connect error");
         close(socket_fd);
@@ -612,7 +613,7 @@ int main(int argc,char *argv[])
     close(socket_fd);
     exit(EXIT_SUCCESS);
 
-}   
+}
 ```
 
 使用网络调试助手，协议类型选择 TCP Server，板卡作为客户端，网络调试助手作为服务器，连接后进行数据传输。

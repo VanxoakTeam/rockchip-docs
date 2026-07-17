@@ -23,13 +23,13 @@ sidebar_position: 1
 
 <img src={require('./images/01-helloworlddriverintroduction-01.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
-在使用 `open` 函数时，传入的参数（如 `flags`、`mode`）会被记录在内核 `struct file` 结构体的 `f_flags` 和 `f_mode` 成员中：
+  在使用 `open` 函数时，传入的参数（如 `flags`、`mode`）会被记录在内核 `struct file` 结构体的 `f_flags` 和 `f_mode` 成员中：
 
 ```c
 int open(const char *pathname, int flags, mode_t mode);
 ```
 
-当进行读写操作时，文件的当前读写位置（偏移量）会保存在 `struct file` 的 `f_pos` 成员中。
+  当进行读写操作时，文件的当前读写位置（偏移量）会保存在 `struct file` 的 `f_pos` 成员中。
 
 <img src={require('./images/01-helloworlddriverintroduction-02.png').default} alt="image-20251029153539138-a78fefa0e9fb5c13e10d77c80d6d5d32.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
@@ -47,7 +47,7 @@ int open(const char *pathname, int flags, mode_t mode);
 
 `struct file_operations` 结构体定义了驱动程序对外提供的操作接口：
 
-​  
+
 
 ### 1.3 应用程序与驱动程序的调用流程
 

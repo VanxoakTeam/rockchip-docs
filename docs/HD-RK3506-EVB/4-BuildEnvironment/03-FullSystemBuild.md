@@ -17,13 +17,13 @@ sidebar_position: 3
 
   编译 rk3506 Linux SDK包需要一些依赖，下面将进行安装依赖操作。
 
-安装依赖之前，最好执行以下指令更新软件包：
+  安装依赖之前，最好执行以下指令更新软件包：
 
 ```shell
 sudo apt update
 ```
 
-安装依赖
+  安装依赖
 
 ```shell
 #安装编译所需工具
@@ -35,11 +35,11 @@ libgucharmap-2-90-dev bzip2 expat gpgv2 cpp-aarch64-linux-gnu libgmp-dev \
 libmpc-dev bc python-is-python3 python2 file rsync bsdmainutils mtd-utils -y
 ```
 
-确保所有依赖安装完成。
+  确保所有依赖安装完成。
 
 ## 2. 检查编译环境
 
--   xxxxxxxxxx .├── app                 # 存放上层应用 app，主要是 qcamera/qfm/qplayer/settings 等一些应用程序。├── buildroot       # 基于 buildroot (2024.02) 开发的根文件系统。├── build.sh -> device/rockchip/common/scripts/build.sh├── common -> device/rockchip/common├── device          # 存放各芯片板级配置和Parameter文件，以及一些编译与打包固件的脚本和预备文件。├── docs                # 存放芯片模块开发指导文档、平台支持列表、芯片平台相关文档、Linux开发指南等。├── external        # 存放第三方相关仓库,包括音频、视频、网络、recovery 等。├── hal                 # 存放RK3506 HAL层相关源码├── kernel -> kernel-6.1├── kernel-6.1  # 存放 kernel 6.1 开发的代码。├── Makefile -> device/rockchip/common/Makefile├── prebuilts       # 存放交叉编译工具链├── README.md -> device/rockchip/common/README.md├── rkbin               # 存放 Rockchip 相关的 Binary 和工具├── rkflash.sh -> device/rockchip/common/scripts/rkflash.sh├── rockdev -> output/firmware├── rtos                # 存放Rtos相关代码├── tools               # 存放 Linux 和 Windows 操作系统环境下常用工具├── u-boot          # 存放uboot源码├── Vanxoak_SDK_Update_Log_20260601.txt└── yocto               # 存放yocoto源码shell
+- 检查和升级主机的 **python** 版本
 
 ```shell
 $ python3 --version
@@ -101,35 +101,20 @@ Which would you like? [1]:4
 itrunk@itrunk:/work/rk3506_linux6.1_v1.2.0$ ./build.sh			
 ```
 
-HD-RK3506-EVB评估板，需要使用 **rockchip\_rk3506\_g\_evb\_nand\_defconfig 配置文件**
+​	HD-RK3506-EVB评估板，需要使用 **rockchip\_rk3506\_g\_evb\_nand\_defconfig 配置文件**
 
 > **注：选择配置文件时，以文件名为准；输入选项时，仔细核对文件名。**
-> 
+>
 > **如果不知道选择什么配置，请根据资料下载章节，仔细阅读核心板区分部分对自己的开发板区分后再进行选择。**
 
--   **RK3506B/J芯片，FLASH为EMMC版本，适配底板HD-RK3506-IOT**
-
-**rockchip\_rk3506\_b\_iot\_emmc\_defconfig**
-
--   **RK3506B/J芯片，FLASH为EMMC版本，适配底板HD-RK3506-IOT，该配置可一键编译QT环境：**
-
-**rockchip\_rk3506\_b\_iot\_emmc\_qt\_defconfig**
-
--   **RK3506B芯片，FLASH为NAND版本，适配底板HD-RK3506-IOT**
-
-**rockchip\_rk3506\_b\_iot\_nand\_defconfig**
-
--   **RK3506G芯片，FLASH为NAND版本配置，适配底板HD-RK3506-IOT**
-
-**rockchip\_rk3506\_g\_iot\_nand\_defconfig**
-
--   **RK3506G芯片，FLASH为NAND版本配置，适配底板HD-RK3506-EVB**
-
-**rockchip\_rk3506\_g\_evb\_nand\_defconfig**
-
--   **RK3506G芯片，可用于SD卡启动配置，适配底板HD-RK3506-EVB**
-
-**rockchip\_rk3506\_g\_evb\_sd\_defconfig**
+| **芯片**  | **FLASH** | **底板**      | **配置**                                      |
+| --------- | --------- | ------------- | --------------------------------------------- |
+| RK3506B/J | EMMC      | HD-RK3506-IOT | rockchip\_rk3506\_b\_iot\_emmc\_defconfig     |
+| RK3506B/J | EMMC      | HD-RK3506-IOT | rockchip\_rk3506\_b\_iot\_emmc\_qt\_defconfig |
+| RK3506B   | NAND      | HD-RK3506-IOT | rockchip\_rk3506\_b\_iot\_nand\_defconfig     |
+| RK3506G   | NAND      | HD-RK3506-IOT | rockchip\_rk3506\_g\_iot\_nand\_defconfig     |
+| RK3506G   | NAND      | HD-RK3506-EVB | rockchip\_rk3506\_g\_evb\_nand\_defconfig     |
+| RK3506G   | SD卡      | HD-RK3506-EVB | rockchip\_rk3506\_g\_evb\_sd\_defconfig       |
 
 ### 3.2 完整编译
 
@@ -139,11 +124,11 @@ HD-RK3506-EVB评估板，需要使用 **rockchip\_rk3506\_g\_evb\_nand\_defconfi
 ./build.sh 
 ```
 
-整个过程耗时较长，根据电脑性能决定编译时间。
+  整个过程耗时较长，根据电脑性能决定编译时间。
 
 <img src={require('./images/03-fullsystembuild-01.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
-编译完成后，固件将会存放在 rockdev目录。
+  编译完成后，固件将会存放在 rockdev目录。
 
 <img src={require('./images/03-fullsystembuild-02.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
@@ -163,7 +148,7 @@ HD-RK3506-EVB评估板，需要使用 **rockchip\_rk3506\_g\_evb\_nand\_defconfi
 
   执行以下命令，将会重新打包所有固件。
 
-适合单独编译后，需要把修改的u-boot或内核，合并成整包固件，即rockdev/update.img。用户可以直接烧录该固件。
+  适合单独编译后，需要把修改的u-boot或内核，合并成整包固件，即rockdev/update.img。用户可以直接烧录该固件。
 
 ```shell
 ./build.sh updateimg

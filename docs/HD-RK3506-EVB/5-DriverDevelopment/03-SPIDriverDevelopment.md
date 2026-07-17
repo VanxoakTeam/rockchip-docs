@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## 1. Rockchip SPI 功能特点
 
-  SPI (serial peripheral interface), 以下是 linux 4.4 SPI 驱动支持的一些特性︰
+SPI (serial peripheral interface), 以下是 linux 4.4 SPI 驱动支持的一些特性︰
 
 -   默认采用摩托罗拉 SPI 协议
 -   支持 8 位和 16 位
@@ -23,11 +23,11 @@ sidebar_position: 3
 ### 2.1 代码路径
 
 ```plain
-drivers/spi/spi.c spi 驱动框架
-drivers/spi/spi-rockchip.c rk spi 各接口实现
-drivers/spi/spidev.c 创建 spi 设备节点，用户态使用｡
-drivers/spi/spi-rockchip-test.c spi 测试驱动，需要自己手动添加到 Makefile 编译
-Documentation/spi/spidev_test.c 用户态 spi 测试工具
+drivers/spi/spi.c spi                  #驱动框架
+drivers/spi/spi-rockchip.c             #rk的spi各接口实现
+drivers/spi/spidev.c                   #创建 spi 设备节点，用户态使用｡
+drivers/spi/spi-rockchip-test.c        #spi 测试驱动，需要自己手动添加到 Makefile 编译
+Documentation/spi/spidev_test.c        #用户态 spi 测试工具
 ```
 
 ### 2.2 SPI 设备配置 -- RK 芯片作 Master 端
@@ -40,7 +40,7 @@ Device Drivers --->
         <*> Rockchip SPI controller driver
 ```
 
-DTS 节点配置
+  DTS 节点配置
 
 ```plain
 &spi1{
@@ -74,7 +74,7 @@ spilk assigned-clock-rates 和 spi-max-frcquney 的配置说明:
 
   内核补丁
 
-请先检查下自己的代码是否包含以下补丁，如果没有，请手动打上补丁:
+  请先检查下自己的代码是否包含以下补丁，如果没有，请手动打上补丁:
 
 ```c
 diff --git a/drivers/spi/spi-rockchip.c b/drivers/spi/spi-rockchip.c 
@@ -165,7 +165,7 @@ Device Drivers --->
         [*] SPI slave protocol handlers
 ```
 
-DTS 节点配置
+  DTS 节点配置
 
 ```plain
 &spi1 {
@@ -180,17 +180,19 @@ DTS 节点配置
 };
 ```
 
-注意:
-
--   实际使用场景可以考虑主从之间增加一个 gpio, 主设备输出来通知从设备 transfer ready 来减少 CPU 忙等时间
+> 注意：实际使用场景可以考虑主从之间增加一个 gpio, 主设备输出来通知从设备 transfer ready 来减少 CPU 忙等时间
+>
 
 #### 2.3.3 SPI Slave 测试须知
 
   spi 做 slave, 要先启动 slave read, 再启动 master write, 不然会导致 slave 还没读完，master 已经写完了｡  
-slave write,master read 也是需要先启动 slave write, 因为只有 master 送出 clk 后，slave 才会工作，同时master 会立即发送或接收数据｡
+  slave write,master read 也是需要先启动 slave write, 因为只有 master 送出 clk 后，slave 才会工作，同时master 会立即发送或接收数据｡
 
-例如：在第三章节的基础上:  
-先 slave : `echo write 0 1 16 > /dev/spi_misc_test`再 master: `echo read 0 1 16 > /dev/spi_misc_test`
+  例如：在第三章节的基础上:
+
+    先 slave : `echo write 0 1 16 > /dev/spi_misc_test`
+
+    再 master: `echo read 0 1 16 > /dev/spi_misc_test`
 
 ### 2.4 SPI 设备驱动介绍
 
@@ -250,7 +252,7 @@ static void __exit spi_test_exit(void)
 module_exit(spi_test_exit);
 ```
 
-对 SPI 读写操作请参考 include/linux/spi/spi.h, 以下简单列出几个
+  对 SPI 读写操作请参考 include/linux/spi/spi.h, 以下简单列出几个
 
 ```plain
 static inline int
@@ -266,7 +268,7 @@ spi_write_and_read(structspi_device *spi, const void *tx_buf, void *rx_buf,size_
 
   User mode SPI device 指的是用户空间直接操作 SPI 接口，这样方便众多的 SPI 外设驱动跑在用户空间，不需要改到内核，方便驱动移植开发｡
 
-内核配置
+  内核配置
 
 ```plain
 Device Drivers --->
@@ -274,7 +276,7 @@ Device Drivers --->
         [*] User mode SPI device driver support
 ```
 
-DTS 配置
+  DTS 配置
 
 ```plain
 &spi0 {
@@ -288,9 +290,7 @@ DTS 配置
 };
 ```
 
-使用说明
-
-驱动设备加载注册成功后，会出现类似这个名字的设备：/dev/spidev1.1
+使用说明：驱动设备加载注册成功后，会出现类似这个名字的设备：/dev/spidev1.1
 
 设备节点的读写操作例程请参照:
 
@@ -316,7 +316,7 @@ make CROSS_COMPILE=~/path-to-toolchain/gcc-xxxxx-toolchain/bin/xxxx-linux-gnu-  
 
   以 SPI1 设定 GPIO0C4 为 spil cs2n 扩展脚为例。
 
-设置 cs - gpio 脚并在 SPI 节点中引用
+  设置 cs - gpio 脚并在 SPI 节点中引用
 
 ```plain
 diff --git a/arch/arm/boot/dts/rv1126-evb-v10.dtsi b/arch/arm/boot/dts/rv1126-evb-v10.dtsi
@@ -366,7 +366,7 @@ spi1: spi@ff5b0000 {
 };
 ```
 
-SPI 节点重新指定 cs 脚
+  SPI 节点重新指定 cs 脚
 
 ```plain
 +&spi1(
@@ -388,9 +388,8 @@ SPI 节点重新指定 cs 脚
     };
 ```
 
-注释:
-
--   如果要扩展 cs - gpio，则所有 cs 都要转为 gpio function，用 c - gpios 扩展来支持。
+> 注释：如果要扩展 cs - gpio，则所有 cs 都要转为 gpio function，用 c - gpios 扩展来支持。
+>
 
 ## 3. 内核测试软件
 
@@ -410,7 +409,7 @@ drivers/spi/Makefile
 obj-y +=spi-rockchip-test.o
 ```
 
-DTS 配置
+  DTS 配置
 
 ```plain
 &spi0{
@@ -430,7 +429,7 @@ DTS 配置
 };
 ```
 
-驱动 log
+  驱动 log
 
 ```plain
 [ 	0.457137]
@@ -449,11 +448,11 @@ echo loop 0 10 255 > /dev/spi_misc_test
 echo setspeed 0 1000000 > /dev/spi_misc_test
 ```
 
-echo 类型 id 循环次数 传输长度 > /dev/spi\_misc\_test
+  echo 类型 id 循环次数 传输长度 > /dev/spi\_misc\_test
 
-echo setspeed id 频率(单位Hz) > /dev/spi\_misc\_test
+  echo setspeed id 频率(单位Hz) > /dev/spi\_misc\_test
 
-如果需要，可以自己修改测试 case｡
+  如果需要，可以自己修改测试 case｡
 
 ## 4. 常见问题
 
@@ -474,17 +473,15 @@ echo setspeed id 频率(单位Hz) > /dev/spi\_misc\_test
 
   请选择合适的目标函数接口再编写驱动｡
 
-自定义 SPI 设备驱动
+  自定义 SPI 设备驱动
 
-参考 “SPI 设备驱动介绍” 编写，实例如: drivers/spi/spi-rockchip-test.c｡
+  参考 “SPI 设备驱动介绍” 编写，实例如: drivers/spi/spi-rockchip-test.c｡
 
-基于 spidev 标准设备节点编写的应用程序
+  基于 spidev 标准设备节点编写的应用程序
 
 ### 4.3 延迟采样时钟配置方案
 
   对于 SPI io 速率较高的情形，正常 SPI mode 可能依旧无法匹配外接器件输出延时，RK SPI master read 可能无法采到有效数据，需要启用 SPI rsd 逻辑来延迟采样时钟｡
-
-​  
 
 RK SPI rsd (read sample delay) 控制逻辑有以下特性:
 

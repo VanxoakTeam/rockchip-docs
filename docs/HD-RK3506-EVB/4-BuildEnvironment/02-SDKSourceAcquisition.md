@@ -19,17 +19,19 @@ sidebar_position: 2
 
   点击下列链接，进入百度网盘下载页面。
 
-[rk3506_linux6.1_sdk_v1.2.0_iot_evb_20260617_MD5_70ed402fb13718a6710a35065dfe68eb.tar.gz](https://pan.baidu.com/s/1nR-y_syJF4AG5F5zqLI5_g?pwd=wxak)
+[rk3506_linux6.1_sdk_v1.2.0_iot_evb_20260617_MD5_70ed402fb13718a6710a35065dfe68eb.tar.gz]()
 
-进入RK3506-EVB-SDK发布，选择修改日期最新的RK3506 SDK源码包进行下载。
+  进入RK3506-EVB-SDK发布，选择修改日期最新的RK3506 SDK源码包进行下载。
 
 <img src={require('./images/02-sdksourceacquisition-01.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
-下载完后，将RK3506 SDK源码包放入Ubuntu 开发主机中，使用以下命令解压SDK。
+  下载完后，将RK3506 SDK源码包放入Ubuntu 开发主机中，使用以下命令解压SDK。
 
 ```shell
-tar -zxvf rk3506_linux6.1_sdk_v1.2.0_iot_evb_20260617_MD5_70ed402fb13718a6710a35065dfe68eb.tar.gz			# 解压SDK, 因为SDK更新原因，压缩包后的时间可能不一样，请以资料下载中的为主
-cd rk3506_linux6.1_sdk_v1.2.0/																					# 进入SDK目录
+# 解压SDK, 因为SDK更新原因，压缩包后的时间可能不一样，请以资料下载中的为主
+tar -zxvf rk3506_linux6.1_sdk_v1.2.0_iot_evb_20260617_MD5_70ed402fb13718a6710a35065dfe68eb.tar.gz
+# 进入SDK目录
+cd rk3506_linux6.1_sdk_v1.2.0/
 ```
 
 ## 2. SDK源码包工程目录介绍

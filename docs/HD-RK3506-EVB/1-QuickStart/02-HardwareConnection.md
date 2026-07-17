@@ -37,7 +37,7 @@ flowchart TD
 
 - 等待系统启动完成，当系统启动完成后，系统运行指示灯**蓝色灯闪烁**。
 
-<img src={require('./images/02-hardwareconnection-02.png').default} alt="5304f141-1a09-4b83-b921-796a5bc33097.png" style={{display: 'block', margin: '20px auto', maxWidth: '60%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
+<img src={require('./images/02-hardwareconnection-02.png').default} alt="5304f141-1a09-4b83-b921-796a5bc33097.png" style={{display: 'block', margin: '20px auto', maxWidth: '50%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
 ### 2.2 串口连接
 
