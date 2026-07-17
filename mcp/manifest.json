@@ -1,9 +1,9 @@
 {
   "version": "0.0.0",
-  "buildTime": "2026-07-17T06:34:56.573Z",
+  "buildTime": "2026-07-17T07:00:27.888Z",
   "docCount": 58,
   "serverName": "rockchip-docs",
-  "baseUrl": "https://wiki.vanxoak.org",
+  "baseUrl": "https://vanxoakteam.github.io",
   "indexers": [
     "docs-json"
   ]
