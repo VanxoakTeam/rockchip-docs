@@ -25,15 +25,15 @@ const config = {
   //   v4: true, // Improve compatibility with the upcoming Docusaurus v4
   // },
 
-  url: 'https://wiki.dshanpi.org',
+  url: 'https://wiki.vanxoak.org',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'dshanpi', // Usually your GitHub org/user name.
-  projectName: 'Docs', // Usually your repo name.
+  organizationName: 'VanxoakTeam', // Usually your GitHub org/user name.
+  projectName: 'rockchip-docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -50,7 +50,7 @@ const config = {
         htmlLang: 'zh-CN',
       },
       en: {
-        label: 'English',
+        label: 'English(comming soon)',
         direction: 'ltr',
         htmlLang: 'en-US',
       },
@@ -62,7 +62,7 @@ const config = {
       'docusaurus-plugin-mcp-server',
       {
         server: {
-          name: 'dshanpi-docs',
+          name: 'rockchip-docs',
           version: '0.0.0',
         },
         indexers: [mcpIndexerPath],
@@ -84,7 +84,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/dshanpi/Docs/tree/main/',
+            'https://github.com/VanxoakTeam/rockchip-docs/tree/main/',
         },
         blog: false,
         theme: {
@@ -128,7 +128,7 @@ const config = {
             ],
           },
           {
-            href: 'https://github.com/dshanpi/Docs',
+            href: 'https://github.com/VanxoakTeam/rockchip-docs',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub Repository',
