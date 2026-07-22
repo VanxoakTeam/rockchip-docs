@@ -72,10 +72,6 @@ rk3506-u-boot.dtsi
 
 | 版本                  | 内核配置                                       |
 | --------------------- | ---------------------------------------------- |
-| RK3506B/J-IOT-EMMC    | vanxoak\_hd\_rk3506b\_iot\_emmc\_defconfig     |
-| RK3506B/J-IOT-EMMC-QT | vanxoak\_hd\_rk3506b\_iot\_emmc\_qt\_defconfig |
-| RK3506B/J-IOT-NAND    | vanxoak\_hd\_rk3506b\_iot\_nand\_defconfig     |
-| RK3506G-IOT-NAND      | vanxoak\_hd\_rk3506g\_iot\_nand\_defconfig     |
 | RK3506G-EVB-NAND      | vanxoak\_hd\_rk3506g\_evb\_nand\_defconfig     |
 | RK3506G-EVB-SD        | vanxoak\_hd\_rk3506g\_evb\_sd\_defconfig       |
 
@@ -100,10 +96,6 @@ cp defconfig arch/arm64/configs/vanxoak_hd_rk3506g_evb_nand_defconfig
 
 | 版本                  | 内核设备树                         |
 | --------------------- | ---------------------------------- |
-| RK3506B/J-IOT-EMMC    | vanxoak-hd-rk3506b-iot-emmc-v1.dts |
-| RK3506B/J-IOT-EMMC-QT | vanxoak-hd-rk3506b-iot-emmc-v1.dts |
-| RK3506B/J-IOT-NAND    | vanxoak-hd-rk3506b-iot-nand-v1.dts |
-| RK3506G-IOT-NAND      | vanxoak-hd-rk3506g-iot-nand-v1.dts |
 | RK3506G-EVB-NAND      | vanxoak-hd-rk3506g-evb-nand-v1.dts |
 | RK3506G-EVB-SD        | vanxoak-hd-rk3506g-evb-sd-v1.dts   |
 
@@ -111,12 +103,12 @@ cp defconfig arch/arm64/configs/vanxoak_hd_rk3506g_evb_nand_defconfig
 
 ```bash
 vanxoak-hd-rk3506g-evb-nand-v1.dts
-vanxoak-hd-rk3506-evb-v1.dtsi
-vanxoak-hd-rk3506-evb-mipi-1024x600.dtsi
-vanxoak-hd-rk3506-evb-rgb-800x480.dtsi
-vanxoak-hd-rk3506-evb-rgb-1024x600.dtsi
-rk3506.dtsi
-rk3502.dtsi
+  vanxoak-hd-rk3506-evb-v1.dtsi
+  vanxoak-hd-rk3506-evb-mipi-1024x600.dtsi
+  vanxoak-hd-rk3506-evb-rgb-800x480.dtsi
+  vanxoak-hd-rk3506-evb-rgb-1024x600.dtsi
+  rk3506.dtsi
+    rk3502.dtsi
 ```
 
 ### 2.4 编译内核
@@ -239,10 +231,6 @@ cp .config configs/rockchip_hd_rk3506g_evb_nand_defconfig
 
 | 版本                  | 内核设备树                                      |
 | --------------------- | ----------------------------------------------- |
-| RK3506B/J-IOT-EMMC    | rockchip\_hd\_rk3506b\_iot\_emmc\_defconfig     |
-| RK3506B/J-IOT-EMMC-QT | rockchip\_hd\_rk3506b\_iot\_emmc\_qt\_defconfig |
-| RK3506B/J-IOT-NAND    | rockchip\_hd\_rk3506b\_iot\_nand\_defconfig     |
-| RK3506G-IOT-NAND      | rockchip\_hd\_rk3506g\_iot\_nand\_defconfig     |
 | RK3506G-EVB-NAND      | rockchip\_hd\_rk3506g\_evb\_nand\_defconfig     |
 | RK3506G-EVB-SD        | rockchip\_hd\_rk3506g\_evb\_sd\_defconfig       |
 

@@ -6,7 +6,7 @@ sidebar_position: 2
 
 :::tip 提示
 
-本文档主要介绍如何获取SDK源码。
+本文档主要介绍如何获取SDK源码，分别提供三种方式，针对不同情况的开发者。
 
 
 :::
@@ -15,23 +15,67 @@ sidebar_position: 2
 
 ## 1. SDK源码获取
 
-### 1.1 百度网盘下载SDK源码包
+提供以下三种方式，可根据自身开发环境与需求灵活选择：
 
-  点击下列链接，进入百度网盘下载页面。
+### 方式一：万象奥科 Ubuntu 虚拟机镜像（推荐初学者）
 
-[rk3506_linux6.1_sdk_v1.2.0_iot_evb_20260617_MD5_70ed402fb13718a6710a35065dfe68eb.tar.gz]()
+-   **适用场景**：初次接触 RK3506 开发，希望快速上手，无需手动搭建开发环境。
+-   **内容说明**：虚拟机内已预置完整的 SDK 源码及编译工具链，导入 VMware 即可直接编译。
+-   **适合人群**：初学者、评测人员、硬件测试工程师。
+
+### 方式二：百度网盘 SDK 完整源码包（下载后放入ubuntu主机中）
+
+-   **适用场景**：已有 Ubuntu 开发环境，仅需获取 SDK 源码进行编译。
+-   **内容说明**：提供完整的 SDK 源码包，下载后解压到开发主机即可编译。
+-   **适合人群**：有 Linux 开发基础的工程师、应用开发者。
+
+    [HD-RK3506-EVB SDK完整源码包](https://pan.baidu.com/s/1nR-y_syJF4AG5F5zqLI5_g?pwd=wxak)
 
   进入RK3506-EVB-SDK发布，选择修改日期最新的RK3506 SDK源码包进行下载。
 
 <img src={require('./images/02-sdksourceacquisition-01.png').default} alt="image.png" style={{display: 'block', margin: '20px auto', maxWidth: '80%', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)'}}/>
 
-  下载完后，将RK3506 SDK源码包放入Ubuntu 开发主机中，使用以下命令解压SDK。
+  下载完后，请核对MD5值。
+```shell
+md5sum rk3506_linux6.1_sdk_v1.2.0_evb_all_20260722.tar.gz
+
+cef0bf4e551382278a390038848cdb51  rk3506_linux6.1_sdk_v1.2.0_evb_all_20260722.tar.gz
+```
+  如果MD5值相同，将RK3506 SDK源码包放入Ubuntu 开发主机中，使用以下命令解压SDK。
 
 ```shell
 # 解压SDK, 因为SDK更新原因，压缩包后的时间可能不一样，请以资料下载中的为主
 tar -zxvf rk3506_linux6.1_sdk_v1.2.0_iot_evb_20260617_MD5_70ed402fb13718a6710a35065dfe68eb.tar.gz
 # 进入SDK目录
 cd rk3506_linux6.1_sdk_v1.2.0/
+```
+
+### 方式三：百度网盘 SDK 源码包 + 补丁包
+
+-   **适用场景**：需要对 SDK 进行深度定制或已在官方源码基础上做过修改，需要增量更新的用户。
+-   **内容说明**：提供基础 SDK 源码包及对应的补丁包，用户可自行打补丁更新或选择性合入。
+  
+  访问以下链接，进入百度网盘下载页面，下载。
+[HD-RK3506-EVB SDK基础包](https://pan.baidu.com/s/1pAhcXzGQFuZ5_P5pfb6dFQ?pwd=wxak)
+
+  下载完后，将RK3506 SDK源码包放入Ubuntu 开发主机中，使用以下命令解压SDK。
+
+```bash
+tar -zxvf rk3506-linux6.1-sdk-release-v2.0.tar.gz			# 解压SDK, 因为SDK更新原因，压缩包后的时间可能不一样，请以资料下载中的为主
+cd rk3506-linux6.1-sdk-release-v2.0/									# 进入SDK目录
+```
+
+  获取补丁包
+
+```bash
+cd ~/
+
+# 克隆补丁包
+git clone https://github.com/vanxoakTeam/hd-rk3506-evb.git
+cd hd-rk3506-evb
+
+# 将补丁包复制到SDK中
+cp ./* -rfvd ~/rk3506_linux6.1_sdk_v1.2.0/
 ```
 
 ## 2. SDK源码包工程目录介绍
