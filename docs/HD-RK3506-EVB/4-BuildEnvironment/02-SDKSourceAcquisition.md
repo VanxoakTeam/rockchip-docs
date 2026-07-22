@@ -41,24 +41,24 @@ cd rk3506_linux6.1_sdk_v1.2.0/
 ```shell
 .
 ├── app					# 存放上层应用 app，主要是 qcamera/qfm/qplayer/settings 等一些应用程序。
-├── buildroot		# 基于 buildroot (2024.02) 开发的根文件系统。
+├── buildroot		    # 基于 buildroot (2024.02) 开发的根文件系统。
 ├── build.sh -> device/rockchip/common/scripts/build.sh
 ├── common -> device/rockchip/common
-├── device			# 存放各芯片板级配置和Parameter文件，以及一些编译与打包固件的脚本和预备文件。
+├── device			    # 存放各芯片板级配置和Parameter文件，以及一些编译与打包固件的脚本和预备文件。
 ├── docs				# 存放芯片模块开发指导文档、平台支持列表、芯片平台相关文档、Linux开发指南等。
-├── external		# 存放第三方相关仓库,包括音频、视频、网络、recovery 等。
+├── external		    # 存放第三方相关仓库,包括音频、视频、网络、recovery 等。
 ├── hal					# 存放RK3506 HAL层相关源码
 ├── kernel -> kernel-6.1
-├── kernel-6.1	# 存放 kernel 6.1 开发的代码。
+├── kernel-6.1	        # 存放 kernel 6.1 开发的代码。
 ├── Makefile -> device/rockchip/common/Makefile
-├── prebuilts		# 存放交叉编译工具链
+├── prebuilts		    # 存放交叉编译工具链
 ├── README.md -> device/rockchip/common/README.md
 ├── rkbin				# 存放 Rockchip 相关的 Binary 和工具
 ├── rkflash.sh -> device/rockchip/common/scripts/rkflash.sh
 ├── rockdev -> output/firmware
 ├── rtos				# 存放Rtos相关代码
 ├── tools				# 存放 Linux 和 Windows 操作系统环境下常用工具
-├── u-boot			# 存放uboot源码
+├── u-boot			    # 存放uboot源码
 ├── Vanxoak_SDK_Update_Log_20260601.txt
 └── yocto				# 存放yocoto源码
 ```

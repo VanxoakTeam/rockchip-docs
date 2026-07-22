@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # SSH 网络远程登录指南
 
-xxxxxxxxxx TODObash
+:::tip
 
 本章节将指导您如何将 **RK3506-EVB** 连接至网络。设备支持 **百兆有线网络** 连接。
 
